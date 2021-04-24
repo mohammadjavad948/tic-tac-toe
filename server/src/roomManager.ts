@@ -35,7 +35,12 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
             board: new Array(9).fill(null)
         }
 
-        rooms.set(name, newRoom)
+        rooms.set(name, newRoom);
+
+        callback({
+            ok: true,
+            room: newRoom
+        })
     })
 
 }
