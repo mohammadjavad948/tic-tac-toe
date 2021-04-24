@@ -38,7 +38,6 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
         }
 
         // add it to room array
-
         rooms.set(name, newRoom);
 
         // notify other users
