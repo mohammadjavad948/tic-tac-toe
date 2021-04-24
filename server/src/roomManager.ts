@@ -41,6 +41,9 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
 
         rooms.set(name, newRoom);
 
+        // notify other users
+        io.emit('room:new', name);
+
         // response to user
         callback({
             ok: true,
