@@ -8,6 +8,17 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
         callback({
             rooms: rooms.values()
         });
+    });
+
+    socket.on('room:create', (name: string, callback: any) => {
+        if (rooms.has(name)) {
+
+            return callback({
+                ok: false,
+                message: `room "${name}" exists`
+            })
+
+        }
     })
 
 }
