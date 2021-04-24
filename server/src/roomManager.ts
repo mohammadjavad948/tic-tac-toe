@@ -19,6 +19,22 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
             })
 
         }
+
+        const newRoom: RoomInterface = {
+            id: 'sdfsf',
+            name,
+            xIsNext: true,
+            start: false,
+            players: [{
+                id: socket.id,
+                // @ts-ignore
+                name: socket.name,
+                role: 'X'
+            }],
+            board: new Array(9).fill(null)
+        }
+
+        rooms.set(name, newRoom)
     })
 
 }

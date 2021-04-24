@@ -8,7 +8,5 @@ export interface RoomInterface{
         name: string
         role: 'X' | 'O' | 'observer'
     }[]
-    board: {
-        board: string[]
-    }[]
+    board: string[]
 }
