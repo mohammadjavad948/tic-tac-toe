@@ -8,6 +8,11 @@ export async function registerConnectionManager(io, socket: Socket, room: Map<st
     });
 
     socket.on('register:name', (name: string, callback: any) => {
+        // @ts-ignore
+        socket.name = name;
 
+        callback({
+            done: true
+        })
     });
 }
