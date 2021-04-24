@@ -12,6 +12,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
     });
 
     socket.on('room:create', (name: string, callback: any) => {
+        // check if room with that name exists return error
         if (rooms.has(name)) {
 
             return callback({
@@ -21,6 +22,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
 
         }
 
+        // create new room
         const newRoom: RoomInterface = {
             id: generateID(),
             name,
@@ -35,8 +37,11 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
             board: new Array(9).fill(null)
         }
 
+        // add it to room array
+
         rooms.set(name, newRoom);
 
+        // response to user
         callback({
             ok: true,
             room: newRoom
