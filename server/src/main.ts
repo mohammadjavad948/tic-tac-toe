@@ -11,7 +11,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 
 const io = socketIO(server);
 
-let rooms = new Map<string, RoomInterface[]>();
+let rooms = new Map<string, RoomInterface>();
 
 io.on('connection', (socket: Socket) => {
 
