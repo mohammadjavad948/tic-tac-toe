@@ -2,6 +2,7 @@ import express from 'express';
 import {Socket} from "socket.io";
 import {RoomInterface} from "./roomInterface";
 import {registerConnectionManager} from "./connectionManager";
+import {registerRoomManager} from "./roomManager";
 const socketIO = require('socket.io');
 
 const app = express();
@@ -16,4 +17,5 @@ let rooms = new Map<string, RoomInterface>();
 
 io.on('connection', (socket: Socket) => {
     registerConnectionManager(io, socket, rooms);
+    registerRoomManager(io, socket, rooms);
 });
