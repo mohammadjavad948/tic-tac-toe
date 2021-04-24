@@ -10,6 +10,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 
 const io = socketIO(server);
 
+let rooms = new Map<string, any>();
 
 io.on('connection', (socket: Socket) => {
 
