@@ -9,7 +9,6 @@ export interface RoomInterface{
         role: 'X' | 'O' | 'observer'
     }[]
     board: {
-        step: number
         board: string[]
     }[]
 }
