@@ -1,5 +1,6 @@
 import {Socket} from "socket.io";
 import {RoomInterface} from "./roomInterface";
+import {generateID} from "./generateId";
 
 
 export async function registerRoomManager(io, socket: Socket, rooms: Map<string, RoomInterface>){
@@ -21,7 +22,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
         }
 
         const newRoom: RoomInterface = {
-            id: 'sdfsf',
+            id: generateID(),
             name,
             xIsNext: true,
             start: false,
