@@ -34,7 +34,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
                 id: socket.id,
                 // @ts-ignore
                 name: socket.name,
-                role: 'X'
+                role: generateRole(name)
             }],
             board: new Array(9).fill(null)
         }
@@ -54,7 +54,39 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
 
     // join new room
     socket.on('room:join', (name: string, callback: any) => {
+        // @ts-ignore
+        if(!rooms.has(name) || socket.name === undefined){
+            return callback({
+                ok: false,
+                message: 'invalid data'
+            })
+        }
 
-    })
+
+        rooms.get(name).players.push({
+            id: socket.id,
+            // @ts-ignore
+            name: socket.name,
+            role: generateRole(name)
+        });
+
+
+    });
+
+    function generateRole(name: string): 'X' | 'O' | 'observer' {
+        if (!rooms.has(name)) {
+            return Math.round(Math.random()) ? 'X' : 'O';
+        }
+
+        const filter = rooms.get(name).players.filter(e => {
+            return e.role === 'X' || e.role === 'O'
+        });
+
+        if (filter.length >= 2) return 'observer';
+
+        if (filter.length === 0) return Math.round(Math.random()) ? 'X' : 'O';
+
+        return filter[0].role === 'X' ? 'O' : 'X'
+    }
 
 }
