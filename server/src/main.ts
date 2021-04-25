@@ -11,6 +11,10 @@ const app = express();
 app.use(cors())
 app.options('*', cors())
 
+app.get('/', (req, res) => {
+    res.send('hello')
+})
+
 const server = app.listen(process.env.PORT || 4000, () => {
     console.log('server is running');
 });
