@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import {Socket} from "socket.io";
 import {RoomInterface} from "./roomInterface";
 import {registerConnectionManager} from "./connectionManager";
