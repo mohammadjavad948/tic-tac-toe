@@ -42,6 +42,9 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
         // add it to room array
         rooms.set(name, newRoom);
 
+        // @ts-ignore
+        socket.room = name;
+
         // notify other users
         io.emit('room:new', name);
 
@@ -75,6 +78,9 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
 
         rooms.get(name).players.push(user);
 
+        // @ts-ignore
+        socket.room = name;
+
         socket.join(name);
 
         socket.to(name).emit('user:join', user);
@@ -82,6 +88,41 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
         callback({
             ok: true,
             room: rooms.get(name)
+        })
+    });
+
+    socket.on('room:leave', (callback: any) => {
+        // @ts-ignore
+        if (socket.room === undefined){
+            return callback({
+                ok: false,
+                message: 'you are not in a room'
+            });
+        }
+
+        // @ts-ignore
+        const room = socket.room;
+
+        const userRole = rooms.get(room)
+            .players
+            .find(e => e.id === socket.id)
+            .role
+
+        if (userRole !== 'observer'){
+            return callback({
+                ok: false,
+                message: 'you cant leave'
+            });
+        }
+
+        const index = rooms.get(room).players.findIndex(e => e.id === socket.id);
+
+        rooms.get(room).players.splice(index, 1);
+
+        socket.to(room).emit('room:user:leave', socket.id);
+
+        callback({
+            ok: true
         })
     });
 
