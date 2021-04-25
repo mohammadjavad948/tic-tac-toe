@@ -4,8 +4,11 @@ import {RoomInterface} from "./roomInterface";
 import {registerConnectionManager} from "./connectionManager";
 import {registerRoomManager} from "./roomManager";
 const socketIO = require('socket.io');
+import * as cors from 'cors';
 
 const app = express();
+
+app.options('*', cors())
 
 const server = app.listen(process.env.PORT || 4000, () => {
     console.log('server is running');
