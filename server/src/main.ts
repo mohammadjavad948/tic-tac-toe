@@ -8,6 +8,7 @@ import * as cors from 'cors';
 
 const app = express();
 
+app.use(cors())
 app.options('*', cors())
 
 const server = app.listen(process.env.PORT || 4000, () => {
