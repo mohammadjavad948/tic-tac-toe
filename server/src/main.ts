@@ -11,7 +11,12 @@ const server = app.listen(process.env.PORT || 3000, () => {
     console.log('server is running');
 });
 
-const io = socketIO(server);
+const io = socketIO(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
 let rooms = new Map<string, RoomInterface>();
 
