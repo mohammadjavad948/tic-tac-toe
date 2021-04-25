@@ -55,6 +55,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
     // join new room
     socket.on('room:join', (name: string, callback: any) => {
         // @ts-ignore
+        // check if user have name and room exists
         if(!rooms.has(name) || socket.name === undefined){
             return callback({
                 ok: false,
@@ -62,6 +63,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
             })
         }
 
+        // add user to room list
         const user = {
             id: socket.id,
             // @ts-ignore
