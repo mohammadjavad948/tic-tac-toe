@@ -88,7 +88,17 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
         callback({
             ok: true,
             room: rooms.get(name)
-        })
+        });
+
+        const filter = rooms.get(name).players.filter(e => {
+            return e.role === 'X' || e.role === 'O'
+        });
+
+        if (filter.length === 2){
+            rooms.get(name).start = true;
+
+            io.in(name).emit('game:start')
+        }
     });
 
     socket.on('room:leave', (callback: any) => {
