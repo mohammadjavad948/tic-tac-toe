@@ -83,7 +83,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
 
         socket.join(name);
 
-        socket.to(name).emit('user:join', user);
+        socket.to(name).emit('room:user:join', user);
 
         callback({
             ok: true,
