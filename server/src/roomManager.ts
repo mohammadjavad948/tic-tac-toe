@@ -62,15 +62,18 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
             })
         }
 
-
-        rooms.get(name).players.push({
+        const user = {
             id: socket.id,
             // @ts-ignore
             name: socket.name,
             role: generateRole(name)
-        });
+        }
 
+        rooms.get(name).players.push(user);
 
+        socket.join(name);
+
+        socket.to(name).emit('user:join', user);
     });
 
     function generateRole(name: string): 'X' | 'O' | 'observer' {
