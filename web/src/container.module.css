@@ -1,3 +1,8 @@
 .container{
-
+    height: 100vh;
+    max-width: 400px;
+    width: 100%;
+    background: rebeccapurple;
+    margin-left: auto;
+    margin-right: auto;
 }
