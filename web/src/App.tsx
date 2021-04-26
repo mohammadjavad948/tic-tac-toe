@@ -1,5 +1,6 @@
 import React from 'react';
 import {createMuiTheme, CssBaseline, ThemeProvider} from "@material-ui/core";
+import Container from "./Container";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
   return (
     <ThemeProvider theme={light}>
       <CssBaseline />
+      <Container />
     </ThemeProvider>
   );
 }
