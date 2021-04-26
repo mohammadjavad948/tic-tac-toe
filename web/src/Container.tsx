@@ -1,6 +1,7 @@
 import style from './container.module.css';
 import AskName from "./AskName";
 import {useNameStore} from "./nameStore";
+import RoomSelection from "./RoomSelection";
 
 export default function Container(){
 
@@ -10,6 +11,8 @@ export default function Container(){
         if (name === ''){
             return <AskName />
         }
+
+        return <RoomSelection />
     }
 
     return (
