@@ -6,7 +6,7 @@ export default function AskName(){
     return (
         <div className={style.container}>
             <Typography variant={"h6"}>Hi. What’s your name?</Typography>
-            <div>
+            <div className={style.form}>
                 <TextField label={"name"} variant={"outlined"}/>
                 <Button variant={"contained"} color={"primary"}>Go</Button>
             </div>
