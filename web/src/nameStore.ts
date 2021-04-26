@@ -7,6 +7,7 @@ export const useNameStore = create(
         (set) => {
             return {
                 setName: (name: string) => {
+                    localStorage.setItem('name', name);
                     set({name});
                 }
             }
