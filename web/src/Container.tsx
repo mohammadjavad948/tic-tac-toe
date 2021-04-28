@@ -1,7 +1,7 @@
 import style from './container.module.css';
 import {AskName} from "./AskName";
 import {useNameStore} from "./nameStore";
-import RoomSelection from "./RoomSelection";
+import {RoomSelection} from "./RoomSelection";
 import {useEffect} from "react";
 import {io} from "socket.io-client";
 import {Logger} from "./logger";
@@ -36,7 +36,7 @@ export default function Container(){
             return <AskName socket={socket}/>
         }
 
-        return <RoomSelection />
+        return <RoomSelection socket={socket}/>
     }
 
     return (

@@ -1,6 +1,12 @@
+import {Socket} from "socket.io-client";
+import {FC} from "react";
 
 
-export default function RoomSelection(){
+interface Props{
+    socket: Socket
+}
+
+export const RoomSelection: FC<Props> = () => {
     return (
         <div>
 
