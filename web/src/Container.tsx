@@ -4,6 +4,7 @@ import {useNameStore} from "./nameStore";
 import RoomSelection from "./RoomSelection";
 import {useEffect} from "react";
 import {io} from "socket.io-client";
+import {Logger} from "./logger";
 
 const socket = io('https://secret-fortress-87428.herokuapp.com/');
 
@@ -14,7 +15,8 @@ export default function Container(){
     useEffect(() => {
 
         socket.on('connect', () => {
-            console.log(socket.id)
+            Logger.info('ws', 'connected to server')
+            Logger.info('ws', `id: ${socket.id}`)
         })
 
     }, [])
