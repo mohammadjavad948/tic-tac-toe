@@ -1,5 +1,5 @@
 import style from './container.module.css';
-import AskName from "./AskName";
+import {AskName} from "./AskName";
 import {useNameStore} from "./nameStore";
 import RoomSelection from "./RoomSelection";
 import {useEffect} from "react";
@@ -24,7 +24,7 @@ export default function Container(){
 
     function showComponent(){
         if (name === ''){
-            return <AskName />
+            return <AskName socket={socket}/>
         }
 
         return <RoomSelection />

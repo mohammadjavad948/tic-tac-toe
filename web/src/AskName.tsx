@@ -2,9 +2,15 @@ import style from './askName.module.css';
 import {Button, TextField, Typography} from "@material-ui/core";
 import {useSpring, a} from 'react-spring';
 import {useNameStore} from "./nameStore";
-import {useState} from "react";
+import {FC, useState} from "react";
+import {Socket} from "socket.io-client";
 
-export default function AskName(){
+interface Props{
+    socket: Socket
+}
+
+
+export const AskName: FC<Props> = () => {
 
     const { setName: setNewName } = useNameStore()
 
