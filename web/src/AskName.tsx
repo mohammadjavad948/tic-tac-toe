@@ -10,7 +10,7 @@ interface Props{
 }
 
 
-export const AskName: FC<Props> = () => {
+export const AskName: FC<Props> = (props) => {
 
     const { setName: setNewName } = useNameStore()
 
@@ -30,7 +30,11 @@ export const AskName: FC<Props> = () => {
     }
 
     function save(){
-        setNewName(name);
+        props.socket.emit('register:name', name, (res: any) => {
+            if (res.done){
+                setNewName(name)
+            }
+        })
     }
 
     return (
