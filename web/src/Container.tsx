@@ -27,6 +27,10 @@ export default function Container(){
             }
         });
 
+        socket.on('disconnect', () => {
+            Logger.danger('ws', 'websocket disconnected');
+        })
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
