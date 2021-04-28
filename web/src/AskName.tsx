@@ -4,6 +4,7 @@ import {useSpring, a} from 'react-spring';
 import {useNameStore} from "./nameStore";
 import {FC, useState} from "react";
 import {Socket} from "socket.io-client";
+import {Logger} from "./logger";
 
 interface Props{
     socket: Socket
@@ -32,6 +33,7 @@ export const AskName: FC<Props> = (props) => {
     function save(){
         props.socket.emit('register:name', name, (res: any) => {
             if (res.done){
+                Logger.info('ws', 'user registered');
                 setNewName(name)
             }
         })

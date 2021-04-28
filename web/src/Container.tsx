@@ -16,9 +16,18 @@ export default function Container(){
 
         socket.on('connect', () => {
             Logger.info('ws', 'connected to server')
-            Logger.info('ws', `id: ${socket.id}`)
-        })
+            Logger.info('ws', `id: ${socket.id}`);
 
+            if (name !== ''){
+                socket.emit('register:name', name, (res: any) => {
+                    if (res.done){
+                        Logger.info('ws', 'user registered');
+                    }
+                })
+            }
+        });
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
