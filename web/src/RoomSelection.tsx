@@ -1,6 +1,6 @@
 import {Socket} from "socket.io-client";
 import {FC, useEffect} from "react";
-
+import style from './roomSelection.module.css';
 
 interface Props{
     socket: Socket
