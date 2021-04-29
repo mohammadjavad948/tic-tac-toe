@@ -1,5 +1,5 @@
 import {useConnectionStore} from "./ConnectionStore";
-import {useSpring, a} from "react-spring";
+import {useSpring, a, config} from "react-spring";
 
 
 export function Connection(){
@@ -8,7 +8,8 @@ export function Connection(){
 
     const animation = useSpring({
         bottom: show ? '20px' : '-50px',
-        delay: 500
+        delay: 500,
+        config: config.wobbly
     })
 
     return (
