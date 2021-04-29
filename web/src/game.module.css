@@ -3,6 +3,8 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .grid {
