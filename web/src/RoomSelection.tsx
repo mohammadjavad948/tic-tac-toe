@@ -22,6 +22,14 @@ export const RoomSelection: FC<Props> = (props) => {
                     return [...s, name]
                 })
             })
+
+            props.socket.on('room:delete', (name: string) => {
+                setRooms(s => {
+                    const newList = s.filter(e => e !== name);
+
+                    return newList
+                })
+            })
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
