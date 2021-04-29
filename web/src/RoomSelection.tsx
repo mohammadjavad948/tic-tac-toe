@@ -32,7 +32,7 @@ function NewRoom(){
             <Typography variant={'h5'}>New Room</Typography>
             <div className={style.form}>
                 <TextField label={"name"} variant={"outlined"}/>
-                <Button variant={"contained"} color={"primary"}>Go</Button>
+                <Button variant={"contained"} color={"primary"}>create</Button>
             </div>
         </div>
     )
