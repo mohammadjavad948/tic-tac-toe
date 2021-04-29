@@ -6,10 +6,10 @@ export const useConnectionStore = create(
         {show: true, message: 'connecting'},
         (set) => {
             return {
-                show: () => {
+                up: () => {
                     set({show: true});
                 },
-                hide: () => {
+                down: () => {
                     set({show: true})
                 },
                 changeMessage: (m: string) => {

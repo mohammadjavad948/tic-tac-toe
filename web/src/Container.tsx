@@ -7,6 +7,7 @@ import {io} from "socket.io-client";
 import {Logger} from "./logger";
 import {useGameStore} from "./GameStore";
 import {Game} from "./Game";
+import {Connection} from "./Connection";
 
 const socket = io('https://secret-fortress-87428.herokuapp.com/');
 
@@ -55,6 +56,7 @@ export default function Container(){
     return (
         <div className={style.container}>
             {showComponent()}
+            <Connection />
         </div>
     )
 }
