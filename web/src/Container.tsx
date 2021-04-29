@@ -8,6 +8,7 @@ import {Logger} from "./logger";
 import {useGameStore} from "./GameStore";
 import {Game} from "./Game";
 import {Connection} from "./Connection";
+import {useConnectionStore} from "./ConnectionStore";
 
 const socket = io('https://secret-fortress-87428.herokuapp.com/');
 
@@ -15,12 +16,16 @@ export default function Container(){
 
     const {name} = useNameStore();
     const {inRoom} = useGameStore();
+    const {up, down, changeMessage} = useConnectionStore();
 
     useEffect(() => {
 
         socket.on('connect', () => {
             Logger.info('ws', 'connected to server')
             Logger.info('ws', `id: ${socket.id}`);
+
+            changeMessage('connected');
+            down();
 
             socket.onAny(console.log);
 
@@ -35,6 +40,9 @@ export default function Container(){
 
         socket.on('disconnect', () => {
             Logger.danger('ws', 'websocket disconnected');
+
+            changeMessage('disconnected');
+            up();
         })
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

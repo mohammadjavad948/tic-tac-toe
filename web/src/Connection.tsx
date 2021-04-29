@@ -7,7 +7,8 @@ export function Connection(){
     const {show, message} = useConnectionStore();
 
     const animation = useSpring({
-        bottom: show ? '20px' : '-50px'
+        bottom: show ? '20px' : '-50px',
+        delay: 500
     })
 
     return (
