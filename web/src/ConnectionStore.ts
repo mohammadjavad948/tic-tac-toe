@@ -10,7 +10,7 @@ export const useConnectionStore = create(
                     set({show: true});
                 },
                 down: () => {
-                    set({show: true})
+                    set({show: false})
                 },
                 changeMessage: (m: string) => {
                     set({message: m})
