@@ -21,9 +21,16 @@ export const RoomSelection: FC<Props> = (props) => {
     return (
         <div className={style.container}>
            <NewRoom />
+           <Typography style={{marginTop: '30px'}} variant={"h5"}>Rooms</Typography>
            <div className={style.roomsContainer}>
-               <Typography variant={"h5"}>Rooms</Typography>
-               <RoomCard name={"test"}/>
+               <RoomCard name={"ali"}/>
+               <RoomCard name={"asghar"}/>
+               <RoomCard name={"ahmad"}/>
+               <RoomCard name={"mamad"}/>
+               <RoomCard name={"fateme"}/>
+               <RoomCard name={"shahab"}/>
+               <RoomCard name={"ghazal"}/>
+               <RoomCard name={"test1"}/>
            </div>
         </div>
     )
@@ -49,8 +56,9 @@ function RoomCard({name}){
 
     return (
         <Card variant={"outlined"} style={{background: theme.palette.background.default}} className={style.roomCard}>
-            <CardContent>
-                {name}
+            <CardContent className={style.cardContainer}>
+                <Typography variant={"body1"}>{name}</Typography>
+                <Button variant={"outlined"} size={"small"}>join</Button>
             </CardContent>
         </Card>
     )
