@@ -2,6 +2,9 @@ import {Socket} from "socket.io-client";
 import {FC, useEffect, useState} from "react";
 import style from './roomSelection.module.css';
 import {Button, Card, CardContent, TextField, Typography, useTheme} from "@material-ui/core";
+import {useTransition, config, a} from 'react-spring';
+
+const AnimatedCard = a(Card)
 
 interface Props{
     socket: Socket
@@ -10,6 +13,13 @@ interface Props{
 export const RoomSelection: FC<Props> = (props) => {
 
     const [rooms, setRooms] = useState<string[]>([]);
+
+    const transitions = useTransition(rooms, {
+        from: { translateX: '-800px' },
+        enter: { translateX: '0px' },
+        leave: { translateX: '400px' },
+        config: config.gentle,
+    })
 
     useEffect(() => {
         props.socket.on('connect', () => {
@@ -45,9 +55,9 @@ export const RoomSelection: FC<Props> = (props) => {
            <NewRoom create={create}/>
            <Typography style={{marginTop: '30px'}} variant={"h5"}>Rooms</Typography>
            <div className={style.roomsContainer}>
-               {
-                   rooms.map((e: any, index) => <RoomCard key={index} name={e}/>)
-               }
+               {transitions((style, item) => (
+                   <RoomCard name={item} style={style}/>
+               ))}
            </div>
         </div>
     )
@@ -78,16 +88,27 @@ function NewRoom({create}){
 }
 
 // @ts-ignore
-function RoomCard({name}){
+function RoomCard({name, style}){
 
     const theme = useTheme();
 
     return (
-        <Card variant={"outlined"} style={{background: theme.palette.background.default}} className={style.roomCard}>
-            <CardContent className={style.cardContainer}>
+        <AnimatedCard
+            variant={"outlined"}
+            style={{
+                background: theme.palette.background.default,
+                translateX: style.translateX,
+                width: '100%',
+                marginTop: '10px'
+            }}>
+            <CardContent style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+            }}>
                 <Typography variant={"body1"}>{name}</Typography>
                 <Button variant={"outlined"} size={"small"}>join</Button>
             </CardContent>
-        </Card>
+        </AnimatedCard>
     )
 }
