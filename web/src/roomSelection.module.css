@@ -11,3 +11,10 @@
     gap: 5px;
     margin-top: 10px;
 }
+
+.roomsContainer{
+    width: 100%;
+    height: available;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

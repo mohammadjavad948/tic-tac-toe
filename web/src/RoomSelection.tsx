@@ -21,6 +21,9 @@ export const RoomSelection: FC<Props> = (props) => {
     return (
         <div className={style.container}>
            <NewRoom />
+           <div className={style.roomsContainer}>
+
+           </div>
         </div>
     )
 }
