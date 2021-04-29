@@ -13,3 +13,7 @@ export const Game: FC<Prop> = (prop) => {
         </div>
     )
 }
+
+function Board(){
+
+}
