@@ -5,12 +5,15 @@ import {RoomSelection} from "./RoomSelection";
 import {useEffect} from "react";
 import {io} from "socket.io-client";
 import {Logger} from "./logger";
+import {useGameStore} from "./GameStore";
+import {Game} from "./Game";
 
 const socket = io('https://secret-fortress-87428.herokuapp.com/');
 
 export default function Container(){
 
-    const {name} = useNameStore()
+    const {name} = useNameStore();
+    const {inRoom} = useGameStore();
 
     useEffect(() => {
 
@@ -40,6 +43,10 @@ export default function Container(){
     function showComponent(){
         if (name === ''){
             return <AskName socket={socket}/>
+        }
+
+        if (inRoom){
+            return <Game socket={socket}/>
         }
 
         return <RoomSelection socket={socket}/>
