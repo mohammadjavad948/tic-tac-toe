@@ -1,5 +1,5 @@
 import {Socket} from "socket.io-client";
-import {FC, useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 import style from './roomSelection.module.css';
 import {Button, Card, CardContent, TextField, Typography, useTheme} from "@material-ui/core";
 
@@ -9,41 +9,64 @@ interface Props{
 
 export const RoomSelection: FC<Props> = (props) => {
 
+    const [rooms, setRooms] = useState<string[]>([]);
+
     useEffect(() => {
         props.socket.on('connect', () => {
             props.socket.emit('rooms:all', (res: any) => {
                 console.log(res);
+                setRooms(res.rooms)
             });
+
+            props.socket.on('room:new', (name: string) => {
+                setRooms(s => {
+                    console.log(s);
+
+                    return [...s, name]
+                })
+            })
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    function create(name: any){
+        props.socket.emit('room:create', name, (res: any) => {
+            console.log(res)
+        })
+    }
+
     return (
         <div className={style.container}>
-           <NewRoom />
+           <NewRoom create={create}/>
            <Typography style={{marginTop: '30px'}} variant={"h5"}>Rooms</Typography>
            <div className={style.roomsContainer}>
-               <RoomCard name={"ali"}/>
-               <RoomCard name={"asghar"}/>
-               <RoomCard name={"ahmad"}/>
-               <RoomCard name={"mamad"}/>
-               <RoomCard name={"fateme"}/>
-               <RoomCard name={"shahab"}/>
-               <RoomCard name={"ghazal"}/>
-               <RoomCard name={"test1"}/>
+               {
+                   rooms.map((e: any, index) => <RoomCard key={index} name={e}/>)
+               }
            </div>
         </div>
     )
 }
 
-function NewRoom(){
+// @ts-ignore
+function NewRoom({create}){
+
+    const [name, setName] = useState('');
+
+    function change(e: any){
+        setName(e.target.value);
+    }
+
+    function cr(){
+        create(name);
+    }
 
     return (
         <div>
             <Typography variant={'h5'}>New Room</Typography>
             <div className={style.form}>
-                <TextField label={"name"} variant={"outlined"}/>
-                <Button variant={"contained"} color={"primary"}>create</Button>
+                <TextField label={"name"} onChange={change} variant={"outlined"}/>
+                <Button variant={"contained"} onClick={cr} disabled={name === ''} color={"primary"}>create</Button>
             </div>
         </div>
     )

@@ -18,6 +18,8 @@ export default function Container(){
             Logger.info('ws', 'connected to server')
             Logger.info('ws', `id: ${socket.id}`);
 
+            socket.onAny(console.log);
+
             if (name !== ''){
                 socket.emit('register:name', name, (res: any) => {
                     if (res.done){
