@@ -14,14 +14,11 @@ export const RoomSelection: FC<Props> = (props) => {
     useEffect(() => {
         props.socket.on('connect', () => {
             props.socket.emit('rooms:all', (res: any) => {
-                console.log(res);
                 setRooms(res.rooms)
             });
 
             props.socket.on('room:new', (name: string) => {
                 setRooms(s => {
-                    console.log(s);
-
                     return [...s, name]
                 })
             })
