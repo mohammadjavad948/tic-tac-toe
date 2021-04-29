@@ -8,7 +8,7 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
     // get all rooms
     socket.on('rooms:all', (callback: any) => {
         callback({
-            rooms: rooms.keys()
+            rooms: Array.from(rooms.keys())
         });
     });
 
