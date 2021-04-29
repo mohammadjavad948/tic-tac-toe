@@ -1,9 +1,26 @@
 import {Socket} from "socket.io";
 import {RoomInterface} from "./roomInterface";
 
-export async function registerConnectionManager(io, socket: Socket, room: Map<string, RoomInterface>){
+export async function registerConnectionManager(io, socket: Socket, rooms: Map<string, RoomInterface>){
 
     socket.on('disconnect', (reason: string) => {
+        // @ts-ignore
+        const room = socket.room;
+
+        if (room === undefined) return null;
+
+        const Aroom = rooms.get(room);
+
+        if (Aroom.players.length === 1){
+            rooms.delete(room);
+
+            io.emit('room:delete', room);
+
+            return null;
+        }
+
+        const index = Aroom.players.findIndex(e => e.id === socket.id);
+        rooms.get(room).players.splice(index, 1);
 
     });
 
