@@ -3,6 +3,7 @@ import {FC, useEffect, useState} from "react";
 import style from './roomSelection.module.css';
 import {Button, Card, CardContent, TextField, Typography, useTheme} from "@material-ui/core";
 import {useTransition, config, a} from 'react-spring';
+import {useGameStore} from "./GameStore";
 
 const AnimatedCard = a(Card)
 
@@ -13,6 +14,7 @@ interface Props{
 export const RoomSelection: FC<Props> = (props) => {
 
     const [rooms, setRooms] = useState<string[]>([]);
+    const {set: setGameStore} = useGameStore();
 
     const transitions = useTransition(rooms, {
         from: { translateX: '-800px' },
@@ -46,7 +48,9 @@ export const RoomSelection: FC<Props> = (props) => {
 
     function create(name: any){
         props.socket.emit('room:create', name, (res: any) => {
-            console.log(res)
+            if (res.ok){
+                setGameStore(true);
+            }
         })
     }
 
