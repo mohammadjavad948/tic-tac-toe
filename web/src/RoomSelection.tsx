@@ -54,13 +54,19 @@ export const RoomSelection: FC<Props> = (props) => {
         })
     }
 
+    function join(name: any){
+        props.socket.emit('room:join', name, (res: any) => {
+           console.log(res)
+        });
+    }
+
     return (
         <div className={style.container}>
            <NewRoom create={create}/>
            <Typography style={{marginTop: '30px'}} variant={"h5"}>Rooms</Typography>
            <div className={style.roomsContainer}>
                {transitions((style, item) => (
-                   <RoomCard name={item} style={style}/>
+                   <RoomCard join={join} name={item} style={style}/>
                ))}
            </div>
         </div>
@@ -92,7 +98,7 @@ function NewRoom({create}){
 }
 
 // @ts-ignore
-function RoomCard({name, style}){
+function RoomCard({name, style, join}){
 
     const theme = useTheme();
 
@@ -111,7 +117,7 @@ function RoomCard({name, style}){
                 justifyContent: 'space-between',
             }}>
                 <Typography variant={"body1"}>{name}</Typography>
-                <Button variant={"outlined"} size={"small"}>join</Button>
+                <Button onClick={() => join(name)} variant={"outlined"} size={"small"}>join</Button>
             </CardContent>
         </AnimatedCard>
     )
