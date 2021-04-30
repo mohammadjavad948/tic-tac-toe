@@ -1,4 +1,4 @@
-import create from 'zustand';
+import create, {State} from 'zustand';
 import {combine} from "zustand/middleware";
 
 export const useGameStore = create(
@@ -13,3 +13,18 @@ export const useGameStore = create(
         }
     )
 );
+
+
+interface PlayerStoreI extends State{
+    players: {
+        name: string
+        id: string
+        role: 'X' | 'O' | 'observer'
+    }[],
+}
+
+export const usePlayerStore = create<PlayerStoreI>(set => {
+    return {
+        players: []
+    }
+})
