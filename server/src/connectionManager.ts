@@ -22,6 +22,7 @@ export async function registerConnectionManager(io, socket: Socket, rooms: Map<s
         const index = Aroom.players.findIndex(e => e.id === socket.id);
         rooms.get(room).players.splice(index, 1);
 
+        socket.to(room).emit('room:user:leave', socket.id);
     });
 
     socket.on('register:name', (name: string, callback: any) => {
