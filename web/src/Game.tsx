@@ -66,6 +66,15 @@ function Players(){
     )
 }
 
+function PlayerCard(player: {name: string, id: string, role: "X" | "O" | "observer"}){
+
+    return (
+        <div style={{width: '100%', display: 'flex'}}>
+
+        </div>
+    )
+}
+
 function Title(){
 
     return (
