@@ -22,6 +22,7 @@ export const Game: FC<Prop> = (prop) => {
             removePlayer(id);
         })
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
