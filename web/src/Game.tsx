@@ -61,6 +61,9 @@ function Players(){
 
     return (
         <div style={{width: '100%'}}>
+            <Typography variant={"h6"}>
+                Players
+            </Typography>
             {players.map((e, i) => <PlayerCard player={e} key={i} />)}
         </div>
     )
