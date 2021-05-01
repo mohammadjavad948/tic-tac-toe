@@ -1,7 +1,7 @@
 import {Socket} from "socket.io-client";
 import {FC, useEffect, useRef, useState} from "react";
 import style from './game.module.css';
-import {Typography} from "@material-ui/core";
+import {Icon, Typography} from "@material-ui/core";
 import {usePlayerStore} from "./GameStore";
 
 interface Prop{
@@ -60,17 +60,27 @@ function Players(){
     const {players} = usePlayerStore();
 
     return (
-        <div>
-            {players.map((e, i) => <span key={i}>{e.name}</span>)}
+        <div style={{width: '100%'}}>
+            {players.map((e, i) => <PlayerCard player={e} key={i} />)}
         </div>
     )
 }
 
-function PlayerCard(player: {name: string, id: string, role: "X" | "O" | "observer"}){
+// @ts-ignore
+function PlayerCard({player}){
 
     return (
-        <div style={{width: '100%', display: 'flex'}}>
-
+        <div className={style.playerCard}>
+            <span className={style.playerLogo}>
+                {
+                    player.role !== 'observer' ?
+                        player.role :
+                        <Icon>
+                            visibility
+                        </Icon>
+                }
+            </span>
+            <span>{player.name}</span>
         </div>
     )
 }

@@ -17,3 +17,18 @@
 .cell{
     border: 0.5px solid #0000002e;
 }
+
+.playerCard{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.playerLogo{
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
