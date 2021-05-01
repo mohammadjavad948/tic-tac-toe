@@ -2,6 +2,7 @@ import {Socket} from "socket.io-client";
 import {FC, useEffect, useRef, useState} from "react";
 import style from './game.module.css';
 import {Typography} from "@material-ui/core";
+import {usePlayerStore} from "./GameStore";
 
 interface Prop{
     socket: Socket
@@ -13,6 +14,7 @@ export const Game: FC<Prop> = (prop) => {
         <div className={style.container}>
             <Title />
             <Board />
+            <Players />
         </div>
     )
 }
@@ -39,6 +41,17 @@ function Board(){
             <div className={style.cell}> </div>
             <div className={style.cell}> </div>
             <div className={style.cell}> </div>
+        </div>
+    )
+}
+
+function Players(){
+
+    const {players} = usePlayerStore();
+
+    return (
+        <div>
+            {players.map((e, i) => <span key={i}>{e.name}</span>)}
         </div>
     )
 }
