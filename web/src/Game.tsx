@@ -10,6 +10,16 @@ interface Prop{
 
 export const Game: FC<Prop> = (prop) => {
 
+    const {addPlayer} = usePlayerStore();
+
+    useEffect(() => {
+
+        prop.socket.on('room:user:join', (res: any) => {
+            addPlayer(res);
+        })
+
+    }, [])
+
     return (
         <div className={style.container}>
             <Title />
