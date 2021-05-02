@@ -32,7 +32,6 @@ export const RoomSelection: FC<Props> = (props) => {
             update: (item, index) => {
                 return { y: index * 80 }
             },
-            config: config.wobbly
         }
     )
     useEffect(() => {
