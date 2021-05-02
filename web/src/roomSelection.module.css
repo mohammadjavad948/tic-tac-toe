@@ -13,9 +13,9 @@
 
 .roomsContainer{
     width: 100%;
-    height: available;
     overflow-x: hidden;
     overflow-y: auto;
+    position: relative;
 }
 
 .roomCard{

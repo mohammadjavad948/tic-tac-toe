@@ -17,13 +17,24 @@ export const RoomSelection: FC<Props> = (props) => {
     const {set: setGameStore} = useGameStore();
     const {setPlayers} = usePlayerStore();
 
-    const transitions = useTransition(rooms, {
-        from: { translateX: '-800px', position: 'absolute' },
-        enter: { translateX: '0px' },
-        leave: { translateX: '400px' },
-        config: config.gentle,
-    })
-
+    const transitions = useTransition(
+        rooms,
+        {
+            from: (item, index) => {
+                return { y: index * 60, opacity: 0 }
+            },
+            leave: (item, index) => {
+                return { y: index * 60, opacity: 0 }
+            },
+            enter: (item, index) => {
+                return { y: index * 80, opacity: 1 }
+            },
+            update: (item, index) => {
+                return { y: index * 80 }
+            },
+            config: config.wobbly
+        }
+    )
     useEffect(() => {
         props.socket.on('connect', () => {
             props.socket.emit('rooms:all', (res: any) => {
@@ -67,7 +78,7 @@ export const RoomSelection: FC<Props> = (props) => {
         <div className={style.container}>
            <NewRoom create={create}/>
            <Typography style={{marginTop: '30px'}} variant={"h5"}>Rooms</Typography>
-           <div className={style.roomsContainer}>
+           <div className={style.roomsContainer} style={{height: '100vh'}}>
                {transitions((style, item) => (
                    <RoomCard join={join} name={item} style={style}/>
                ))}
@@ -110,9 +121,10 @@ function RoomCard({name, style, join}){
             variant={"outlined"}
             style={{
                 background: theme.palette.background.default,
-                translateX: style.translateX,
                 width: '100%',
-                marginTop: '10px'
+                position: 'absolute',
+                top: style.y.to((y: any) => y + 'px'),
+                opacity: style.opacity
             }}>
             <CardContent style={{
                 display: 'flex',
