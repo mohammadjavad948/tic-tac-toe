@@ -18,7 +18,7 @@ export const RoomSelection: FC<Props> = (props) => {
     const {setPlayers} = usePlayerStore();
 
     const transitions = useTransition(rooms, {
-        from: { translateX: '-800px' },
+        from: { translateX: '-800px', position: 'absolute' },
         enter: { translateX: '0px' },
         leave: { translateX: '400px' },
         config: config.gentle,
