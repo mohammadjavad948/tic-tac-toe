@@ -3,6 +3,7 @@ import {FC, useEffect, useRef, useState} from "react";
 import style from './game.module.css';
 import {Icon, Typography} from "@material-ui/core";
 import {usePlayerStore} from "./GameStore";
+import {useTransition, animated} from "react-spring";
 
 interface Prop{
     socket: Socket
@@ -64,21 +65,41 @@ function Players(){
 
     const {players} = usePlayerStore();
 
+    const transition = useTransition(
+        players,
+        {
+            from: (item, index) => {
+                return { y: index * 60, opacity: 0 }
+            },
+            leave: (item, index) => {
+                return { y: index * 60, opacity: 0 }
+            },
+            enter: (item, index) => {
+                return { y: index * 80, opacity: 1 }
+            },
+            update: (item, index) => {
+                return { y: index * 80 }
+            },
+        }
+    );
+
     return (
-        <div style={{width: '100%'}}>
+        <div style={{width: '100%', position: 'relative'}}>
             <Typography variant={"h6"}>
                 Players
             </Typography>
-            {players.map((e, i) => <PlayerCard player={e} key={i} />)}
+            {transition((style, item) => (
+                <PlayerCard player={item} style={style}/>
+            ))}
         </div>
     )
 }
 
 // @ts-ignore
-function PlayerCard({player}){
+function PlayerCard({player, style}){
 
     return (
-        <div className={style.playerCard}>
+        <animated.div className={style.playerCard} style={{top: style.y.to((x: any) => x + 'px'), opacity: style.opacity}}>
             <span className={style.playerLogo}>
                 {
                     player.role !== 'observer' ?
@@ -89,7 +110,7 @@ function PlayerCard({player}){
                 }
             </span>
             <span>{player.name}</span>
-        </div>
+        </animated.div>
     )
 }
 
