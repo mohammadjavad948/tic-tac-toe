@@ -1,6 +1,6 @@
 import {Socket} from "socket.io-client";
-import {CSSProperties, FC, useEffect, useRef, useState} from "react";
-import style from './game.module.css';
+import {FC, useEffect, useRef, useState} from "react";
+import styles from './game.module.css';
 import {Icon, Typography} from "@material-ui/core";
 import {usePlayerStore} from "./GameStore";
 import {useTransition, animated} from "react-spring";
@@ -27,7 +27,7 @@ export const Game: FC<Prop> = (prop) => {
     }, [])
 
     return (
-        <div className={style.container}>
+        <div className={styles.container}>
             <Title />
             <Board />
             <Players />
@@ -46,17 +46,17 @@ function Board(){
 
     return (
         <div
-            className={style.grid}
+            className={styles.grid}
             ref={ref} style={{height: wi}}>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
-            <div className={style.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
+            <div className={styles.cell}> </div>
         </div>
     )
 }
@@ -95,32 +95,12 @@ function Players(){
     )
 }
 
-const playerCardStyle: CSSProperties = {
-    display: 'flex',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    gap: '20px',
-    border: '1px solid #00000059',
-    borderRadius: '5px',
-    marginTop: '10px',
-    padding: '10px',
-    position: 'absolute',
-}
-
-const playerLogoStyle: CSSProperties = {
-    fontSize: '26px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}
-
 // @ts-ignore
 function PlayerCard({player, style}){
 
     return (
-        <animated.div style={{top: style.y.to((x: any) => (x + 28) + 'px'), opacity: style.opacity, ...playerCardStyle}}>
-            <span style={playerLogoStyle}>
+        <animated.div className={styles.playerCard} style={{top: style.y.to((x: any) => (x + 28) + 'px'), opacity: style.opacity}}>
+            <span className={styles.playerLogo}>
                 {
                     player.role !== 'observer' ?
                         player.role :
