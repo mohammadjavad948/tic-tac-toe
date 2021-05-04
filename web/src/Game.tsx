@@ -1,5 +1,5 @@
 import {Socket} from "socket.io-client";
-import {FC, useEffect, useRef, useState} from "react";
+import {CSSProperties, FC, useEffect, useRef, useState} from "react";
 import style from './game.module.css';
 import {Icon, Typography} from "@material-ui/core";
 import {usePlayerStore} from "./GameStore";
@@ -75,10 +75,10 @@ function Players(){
                 return { y: index * 60, opacity: 0 }
             },
             enter: (item, index) => {
-                return { y: index * 80, opacity: 1 }
+                return { y: index * 70, opacity: 1 }
             },
             update: (item, index) => {
-                return { y: index * 80 }
+                return { y: index * 70 }
             },
         }
     );
@@ -95,12 +95,32 @@ function Players(){
     )
 }
 
+const playerCardStyle: CSSProperties = {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: '20px',
+    border: '1px solid #00000059',
+    borderRadius: '5px',
+    marginTop: '10px',
+    padding: '10px',
+    position: 'absolute',
+}
+
+const playerLogoStyle: CSSProperties = {
+    fontSize: '26px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}
+
 // @ts-ignore
 function PlayerCard({player, style}){
 
     return (
-        <animated.div className={style.playerCard} style={{top: style.y.to((x: any) => x + 'px'), opacity: style.opacity}}>
-            <span className={style.playerLogo}>
+        <animated.div style={{top: style.y.to((x: any) => (x + 28) + 'px'), opacity: style.opacity, ...playerCardStyle}}>
+            <span style={playerLogoStyle}>
                 {
                     player.role !== 'observer' ?
                         player.role :
