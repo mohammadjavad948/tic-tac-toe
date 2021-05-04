@@ -119,7 +119,7 @@ function NewRoom({create}){
                     </Icon>
                 </Fab>
             </div>
-            <NewRoomDialog open={open} close={close}/>
+            <NewRoomDialog create={create} open={open} close={close}/>
         </div>
     )
 }
@@ -133,7 +133,8 @@ function NewRoomDialog(props) {
     }
 
     function create(){
-
+        props.create(name);
+        close()
     }
 
     const { close, open } = props;
