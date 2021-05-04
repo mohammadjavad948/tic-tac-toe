@@ -1,7 +1,18 @@
 import {Socket} from "socket.io-client";
 import {FC, useEffect, useState} from "react";
 import style from './roomSelection.module.css';
-import {Button, Card, CardContent, TextField, Typography, useTheme} from "@material-ui/core";
+import {
+    Button,
+    Card,
+    CardContent,
+    Dialog,
+    DialogTitle,
+    Fab,
+    Icon,
+    TextField,
+    Typography,
+    useTheme
+} from "@material-ui/core";
 import {useTransition, a} from 'react-spring';
 import {useGameStore, usePlayerStore} from "./GameStore";
 
@@ -76,7 +87,7 @@ export const RoomSelection: FC<Props> = (props) => {
     return (
         <div className={style.container}>
            <NewRoom create={create}/>
-           <Typography style={{marginTop: '30px'}} variant={"h5"}>Rooms</Typography>
+           <Typography variant={"h5"}>Rooms</Typography>
            <div className={style.roomsContainer} style={{height: (rooms.length + 1) * 90}}>
                {transitions((style, item) => (
                    <RoomCard join={join} name={item} style={style}/>
@@ -89,25 +100,46 @@ export const RoomSelection: FC<Props> = (props) => {
 // @ts-ignore
 function NewRoom({create}){
 
+    return (
+        <div>
+            <div className={style.addFab}>
+                <Fab color="primary" aria-label="add">
+                    <Icon>
+                        add
+                    </Icon>
+                </Fab>
+            </div>
+        </div>
+    )
+}
+
+// @ts-ignore
+function NewRoomDialog(props) {
     const [name, setName] = useState('');
 
     function change(e: any){
         setName(e.target.value);
     }
 
-    function cr(){
-        create(name);
+    function create(){
+
     }
 
+    const { close, open } = props;
+
+    const handleClose = () => {
+        close()
+    };
+
     return (
-        <div>
-            <Typography variant={'h5'}>New Room</Typography>
+        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+            <DialogTitle id="simple-dialog-title">create new room</DialogTitle>
             <div className={style.form}>
                 <TextField label={"name"} onChange={change} variant={"outlined"}/>
-                <Button variant={"contained"} onClick={cr} disabled={name === ''} color={"primary"}>create</Button>
+                <Button variant={"contained"} onClick={create} disabled={name === ''} color={"primary"}>create</Button>
             </div>
-        </div>
-    )
+        </Dialog>
+    );
 }
 
 // @ts-ignore

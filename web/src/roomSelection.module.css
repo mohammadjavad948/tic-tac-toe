@@ -18,6 +18,12 @@
     position: relative;
 }
 
+.addFab{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
+
 .roomCard{
     width: 100%;
     margin-top: 10px;
