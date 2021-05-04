@@ -100,15 +100,26 @@ export const RoomSelection: FC<Props> = (props) => {
 // @ts-ignore
 function NewRoom({create}){
 
+    const [open, setOpen] = useState(false);
+
+    function fabClick(){
+        setOpen(true);
+    }
+
+    function close(){
+        setOpen(false);
+    }
+
     return (
         <div>
             <div className={style.addFab}>
-                <Fab color="primary" aria-label="add">
+                <Fab onClick={fabClick} color="primary" aria-label="add">
                     <Icon>
                         add
                     </Icon>
                 </Fab>
             </div>
+            <NewRoomDialog open={open} close={close}/>
         </div>
     )
 }
