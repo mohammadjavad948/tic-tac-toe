@@ -143,7 +143,7 @@ function NewRoomDialog(props) {
     };
 
     return (
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+        <Dialog onClose={handleClose} open={open}>
             <DialogTitle id="simple-dialog-title">create new room</DialogTitle>
             <div className={style.form}>
                 <TextField label={"name"} onChange={change} variant={"outlined"}/>
