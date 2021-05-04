@@ -2,7 +2,7 @@ import {Socket} from "socket.io-client";
 import {FC, useEffect, useState} from "react";
 import style from './roomSelection.module.css';
 import {Button, Card, CardContent, TextField, Typography, useTheme} from "@material-ui/core";
-import {useTransition, config, a} from 'react-spring';
+import {useTransition, a} from 'react-spring';
 import {useGameStore, usePlayerStore} from "./GameStore";
 
 const AnimatedCard = a(Card)
