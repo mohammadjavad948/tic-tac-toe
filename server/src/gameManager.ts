@@ -9,7 +9,9 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
 
     // event functions
     function move(block: number){
+        const playerTurn = isPlayerTurn();
 
+        if(!playerTurn) return null;
     }
 
     // helper functions
