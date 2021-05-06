@@ -11,4 +11,14 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
     function move(block: number){
 
     }
+
+    // helper functions
+    function isPlayerTurn(): boolean{
+        // @ts-ignore
+        const room = rooms.get(socket.room);
+
+        const player = room.players.find(e => e.id === socket.id);
+
+        return player.role === (room.xIsNext ? 'O' : 'X');
+    }
 }
