@@ -5,6 +5,7 @@ import {registerConnectionManager} from "./connectionManager";
 import {registerRoomManager} from "./roomManager";
 const socketIO = require('socket.io');
 import * as cors from 'cors';
+import {registerGameManager} from "./gameManager";
 
 const app = express();
 
@@ -31,4 +32,5 @@ let rooms = new Map<string, RoomInterface>();
 io.on('connection', (socket: Socket) => {
     registerConnectionManager(io, socket, rooms);
     registerRoomManager(io, socket, rooms);
+    registerGameManager(io, socket, rooms);
 });
