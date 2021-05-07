@@ -3,6 +3,9 @@ import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
 import {Typography} from "@material-ui/core";
 import {usePlayerStore} from "./GameStore";
+import {useWindowSize} from "./useWindowResize";
+import {useSpring, animated} from "react-spring";
+import {useDrag} from "react-use-gesture";
 
 interface Prop{
     socket: Socket
@@ -11,6 +14,8 @@ interface Prop{
 export const Game: FC<Prop> = (prop) => {
 
     const {addPlayer, removePlayer} = usePlayerStore();
+
+    const size = useWindowSize();
 
     useEffect(() => {
 
@@ -25,10 +30,15 @@ export const Game: FC<Prop> = (prop) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    function showHandle(){
+        if (size.width < 800) return <MobilePlayer />
+    }
+
     return (
         <div className={styles.container}>
             <Title />
             <Board />
+            {showHandle()}
         </div>
     )
 }
@@ -57,6 +67,49 @@ function Board(){
             <div className={styles.cell}> </div>
         </div>
     )
+}
+
+function MobilePlayer(){
+
+    const size = useWindowSize();
+
+    const [animation, api] = useSpring(() => {
+        return {
+            y: 0
+        }
+    });
+
+    const bind = useDrag((state) => {
+        const {movement: [,oy], down, direction: [, y]} = state;
+
+        const last = animation.y.get();
+
+        api({
+            y: oy + last
+        });
+
+        if (!down){
+            const dir = y > 0 ? -1 : 1;
+
+            if (dir === -1){
+                api({
+                    y: 0
+                })
+            }
+
+            if (dir === 1){
+                api({
+                    y: - (size.height - 30)
+                })
+            }
+        }
+    })
+
+    return <animated.div {...bind()} className={styles.mobilePlayer} style={{...animation, top: size.height - 30}}>
+        <div className={styles.handle}>
+
+        </div>
+    </animated.div>
 }
 
 function Title(){
