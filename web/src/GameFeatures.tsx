@@ -2,8 +2,6 @@ import {usePlayerStore} from "./GameStore";
 import {animated, useTransition} from "react-spring";
 import {Icon, Typography} from "@material-ui/core";
 import styles from "./game.module.css";
-import {useWindowSize} from "./useWindowResize";
-
 
 export default function GameFeatures({...props}){
 
