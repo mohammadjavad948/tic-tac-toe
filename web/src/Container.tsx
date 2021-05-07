@@ -66,7 +66,7 @@ export default function Container(){
     }
 
     function showSide(){
-        if (inRoom && size.width >= 800) return <GameFeatures className={style.container}/>
+        if (inRoom && size.width >= 800) return <GameFeatures className={style.container} style={{height: (size.height - 50) + 'px'}}/>
     }
 
     return (

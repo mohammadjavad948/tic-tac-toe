@@ -17,8 +17,6 @@ function Players(){
 
     const {players} = usePlayerStore();
 
-    const size = useWindowSize();
-
     const transition = useTransition(
         players,
         {
@@ -38,7 +36,7 @@ function Players(){
     );
 
     return (
-        <div style={{width: '100%', position: 'relative', height: (size.height - 30) + 'px', overflowX: 'hidden', overflowY: 'auto'}}>
+        <div style={{width: '100%', position: 'relative', height: '100%', overflowX: 'hidden', overflowY: 'auto'}}>
             <Typography variant={"h6"}>
                 Players
             </Typography>
