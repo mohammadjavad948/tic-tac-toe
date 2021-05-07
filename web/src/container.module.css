@@ -6,4 +6,5 @@
     margin-right: auto;
     padding: 10px;
     display: flex;
+    overflow: hidden;
 }
