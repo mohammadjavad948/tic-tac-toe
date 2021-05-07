@@ -2,9 +2,15 @@
     height: 100vh;
     max-width: 400px;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
     padding: 10px;
     display: flex;
     overflow: hidden;
+}
+
+.base{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
 }

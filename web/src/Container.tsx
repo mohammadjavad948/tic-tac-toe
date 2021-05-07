@@ -9,6 +9,7 @@ import {useGameStore} from "./GameStore";
 import {Game} from "./Game";
 import {Connection} from "./Connection";
 import {useConnectionStore} from "./ConnectionStore";
+import GameFeatures from "./GameFeatures";
 
 const socket = io('https://rocky-taiga-45985.herokuapp.com/');
 
@@ -61,10 +62,17 @@ export default function Container(){
         return <RoomSelection socket={socket}/>
     }
 
+    function showSide(){
+        if (inRoom) return <GameFeatures className={style.container}/>
+    }
+
     return (
-        <div className={style.container}>
-            {showComponent()}
-            <Connection />
+        <div className={style.base}>
+            <div className={style.container}>
+                {showComponent()}
+                <Connection />
+            </div>
+            {showSide()}
         </div>
     )
 }
