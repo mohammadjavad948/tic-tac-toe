@@ -1,11 +1,12 @@
 import {Socket} from "socket.io-client";
 import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
-import {Typography} from "@material-ui/core";
+import {Icon, Typography} from "@material-ui/core";
 import {usePlayerStore} from "./GameStore";
 import {useWindowSize} from "./useWindowResize";
 import {useSpring, animated} from "react-spring";
 import {useDrag} from "react-use-gesture";
+import GameFeatures from "./GameFeatures";
 
 interface Prop{
     socket: Socket
@@ -107,8 +108,11 @@ function MobilePlayer(){
 
     return <animated.div {...bind()} className={styles.mobilePlayer} style={{...animation, top: size.height - 30}}>
         <div className={styles.handle}>
-
+            <Icon>
+                expand_less
+            </Icon>
         </div>
+        <GameFeatures style={{height: size.height - 50}} className={styles.player}/>
     </animated.div>
 }
 
