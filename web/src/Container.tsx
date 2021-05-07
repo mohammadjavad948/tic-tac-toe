@@ -10,6 +10,7 @@ import {Game} from "./Game";
 import {Connection} from "./Connection";
 import {useConnectionStore} from "./ConnectionStore";
 import GameFeatures from "./GameFeatures";
+import {useWindowSize} from "./useWindowResize";
 
 const socket = io('https://rocky-taiga-45985.herokuapp.com/');
 
@@ -18,6 +19,8 @@ export default function Container(){
     const {name} = useNameStore();
     const {inRoom} = useGameStore();
     const {up, down, changeMessage} = useConnectionStore();
+
+    const size = useWindowSize();
 
     useEffect(() => {
 
@@ -63,7 +66,7 @@ export default function Container(){
     }
 
     function showSide(){
-        if (inRoom) return <GameFeatures className={style.container}/>
+        if (inRoom && size.width >= 800) return <GameFeatures className={style.container}/>
     }
 
     return (
