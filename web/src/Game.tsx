@@ -45,6 +45,8 @@ function Board(){
     let ref = useRef() as any;
     const [wi, setWi] = useState('0px');
 
+    const {board} = useBoardStore();
+
     useEffect(() => {
         setWi(ref.current.clientWidth + 'px');
     }, [])
@@ -53,16 +55,15 @@ function Board(){
         <div
             className={styles.grid}
             ref={ref} style={{height: wi}}>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
-            <div className={styles.cell}> </div>
+            {board.map((el, index) => <BoardTile key={index} data={el}/>)}
         </div>
+    )
+}
+
+// @ts-ignore
+function BoardTile({data}){
+    return (
+        <div className={styles.cell}> </div>
     )
 }
 
