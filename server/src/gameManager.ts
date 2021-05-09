@@ -28,17 +28,16 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
 
     function changeBoardSquare(index: number){
         // @ts-ignore
-        const role = rooms.get(socket.room).players.find(e => e.id === socket.id).role;
+        const roomName = socket.room
 
-        // @ts-ignore
-        if (rooms.get(socket.room).board[index] !== null){
+        const role = rooms.get(roomName).players.find(e => e.id === socket.id).role;
+
+        if (rooms.get(roomName).board[index] !== null){
             return null
         }
 
-        // @ts-ignore
-        rooms.get(socket.room).board[index] = role;
+        rooms.get(roomName).board[index] = role;
 
-        // @ts-ignore
-        io.in(socket.room).emit('game:board', rooms.get(socket.room).board);
+        io.in(roomName).emit('game:board', rooms.get(roomName).board);
     }
 }
