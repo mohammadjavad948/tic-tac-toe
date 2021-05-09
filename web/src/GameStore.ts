@@ -58,3 +58,17 @@ export const useBoardStore = create(
         }
     )
 );
+
+
+export const useXIsNextStore = create(
+    combine(
+        {xIsNext: true},
+        (set) => {
+            return {
+                set: (stat: boolean) => {
+                    set({xIsNext: stat})
+                }
+            }
+        }
+    )
+);
