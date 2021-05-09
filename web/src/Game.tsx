@@ -1,7 +1,7 @@
 import {Socket} from "socket.io-client";
 import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
-import {Icon, Typography} from "@material-ui/core";
+import {Button, Icon, Typography} from "@material-ui/core";
 import {useBoardStore, usePlayerStore} from "./GameStore";
 import {useTransition, animated} from "react-spring";
 
@@ -34,13 +34,14 @@ export const Game: FC<Prop> = (prop) => {
     return (
         <div className={styles.container}>
             <Title />
-            <Board />
+            <Board socket={prop.socket}/>
             <Players />
         </div>
     )
 }
 
-function Board(){
+// @ts-ignore
+function Board({socket}){
 
     let ref = useRef() as any;
     const [wi, setWi] = useState('0px');
@@ -51,19 +52,23 @@ function Board(){
         setWi(ref.current.clientWidth + 'px');
     }, [])
 
+    function tileClick(index: number){
+        socket.emit('game:move', index)
+    }
+
     return (
         <div
             className={styles.grid}
             ref={ref} style={{height: wi}}>
-            {board.map((el, index) => <BoardTile key={index} data={el}/>)}
+            {board.map((el, index) => <BoardTile onClick={() => tileClick(index)} key={index} data={el}/>)}
         </div>
     )
 }
 
 // @ts-ignore
-function BoardTile({data}){
+function BoardTile({data, onClick}){
     return (
-        <div className={styles.cell}> </div>
+        <Button className={styles.cell} onClick={onClick}> {data} </Button>
     )
 }
 
