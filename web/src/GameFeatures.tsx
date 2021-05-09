@@ -2,7 +2,6 @@ import {usePlayerStore} from "./GameStore";
 import {animated, useTransition} from "react-spring";
 import {Icon, Typography} from "@material-ui/core";
 import styles from "./game.module.css";
-import {useWindowSize} from "./useWindowResize";
 
 
 export default function GameFeatures({...props}){
@@ -16,8 +15,6 @@ export default function GameFeatures({...props}){
 function Players(){
 
     const {players} = usePlayerStore();
-
-    const size = useWindowSize();
 
     const transition = useTransition(
         players,
@@ -38,7 +35,7 @@ function Players(){
     );
 
     return (
-        <div style={{width: '100%', position: 'relative', height: (size.height - 30) + 'px', overflowX: 'hidden', overflowY: 'auto'}}>
+        <div style={{width: '100%', position: 'relative'}}>
             <Typography variant={"h6"}>
                 Players
             </Typography>
