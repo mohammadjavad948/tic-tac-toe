@@ -26,7 +26,7 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
         return player.role === (room.xIsNext ? 'O' : 'X');
     }
 
-    function changeBoardSquare(index: number){
+    function changeBoardSquare(index: number): void{
         // @ts-ignore
         const roomName = socket.room
 
