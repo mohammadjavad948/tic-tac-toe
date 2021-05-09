@@ -43,4 +43,18 @@ export const usePlayerStore = create<PlayerStoreI>(set => {
             })
         }
     }
-})
+});
+
+
+export const useBoardStore = create(
+    combine(
+        {board: new Array(9).fill(null)},
+        (set) => {
+            return {
+                set: (stat: any[]) => {
+                    set({board: stat})
+                }
+            }
+        }
+    )
+);
