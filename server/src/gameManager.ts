@@ -39,5 +39,9 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
         rooms.get(roomName).board[index] = role;
 
         io.in(roomName).emit('game:board', rooms.get(roomName).board);
+
+        rooms.get(roomName).xIsNext = !rooms.get(roomName).xIsNext;
+
+        io.in(roomName).emit('game:xIsNext', rooms.get(roomName).xIsNext);
     }
 }
