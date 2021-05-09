@@ -14,7 +14,7 @@ import {
     useTheme
 } from "@material-ui/core";
 import {useTransition, a} from 'react-spring';
-import {useGameStore, usePlayerStore} from "./GameStore";
+import {useBoardStore, useGameStore, usePlayerStore} from "./GameStore";
 
 const AnimatedCard = a(Card)
 
@@ -26,6 +26,7 @@ export const RoomSelection: FC<Props> = (props) => {
 
     const [rooms, setRooms] = useState<string[]>([]);
     const {set: setGameStore} = useGameStore();
+    const {set: setBoard} = useBoardStore();
     const {setPlayers} = usePlayerStore();
 
     const transitions = useTransition(
@@ -71,7 +72,8 @@ export const RoomSelection: FC<Props> = (props) => {
     function create(name: any){
         props.socket.emit('room:create', name, (res: any) => {
             if (res.ok){
-                setPlayers(res.room.players)
+                setPlayers(res.room.players);
+                setBoard(res.room.board)
                 setGameStore(true);
             }
         })
@@ -80,6 +82,7 @@ export const RoomSelection: FC<Props> = (props) => {
     function join(name: any){
         props.socket.emit('room:join', name, (res: any) => {
             setPlayers(res.room.players);
+            setBoard(res.room.board);
             setGameStore(true);
         });
     }

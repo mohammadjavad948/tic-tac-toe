@@ -2,7 +2,7 @@ import {Socket} from "socket.io-client";
 import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
 import {Icon, Typography} from "@material-ui/core";
-import {usePlayerStore} from "./GameStore";
+import {useBoardStore, usePlayerStore} from "./GameStore";
 import {useTransition, animated} from "react-spring";
 
 interface Prop{
@@ -12,6 +12,7 @@ interface Prop{
 export const Game: FC<Prop> = (prop) => {
 
     const {addPlayer, removePlayer} = usePlayerStore();
+    const {set: setBoard} = useBoardStore();
 
     useEffect(() => {
 
@@ -21,6 +22,10 @@ export const Game: FC<Prop> = (prop) => {
 
         prop.socket.on('room:user:leave', (id: any) => {
             removePlayer(id);
+        });
+
+        prop.socket.on('game:board', (res: any) => {
+            setBoard(res);
         })
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
