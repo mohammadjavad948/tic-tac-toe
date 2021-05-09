@@ -2,7 +2,7 @@ import {Socket} from "socket.io-client";
 import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
 import {Button, Icon, Typography} from "@material-ui/core";
-import {useBoardStore, usePlayerStore, useXIsNextStore} from "./GameStore";
+import {useBoardStore, useIsGameStartedStore, usePlayerStore, useXIsNextStore} from "./GameStore";
 import {useTransition, animated} from "react-spring";
 
 interface Prop{
@@ -14,6 +14,7 @@ export const Game: FC<Prop> = (prop) => {
     const {addPlayer, removePlayer} = usePlayerStore();
     const {set: setBoard} = useBoardStore();
     const {set: setXIsNext} = useXIsNextStore();
+    const {set: setIsGameStarted} = useIsGameStartedStore();
 
     useEffect(() => {
 
@@ -31,6 +32,10 @@ export const Game: FC<Prop> = (prop) => {
 
         prop.socket.on('game:xIsNext', (res: any) => {
             setXIsNext(res);
+        })
+
+        prop.socket.on('game:start', (res: any) => {
+            setIsGameStarted(true);
         })
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,8 +77,11 @@ function Board({socket}){
 
 // @ts-ignore
 function BoardTile({data, onClick}){
+
+    const {started} = useIsGameStartedStore();
+
     return (
-        <Button className={styles.cell} onClick={onClick}> {data} </Button>
+        <Button disabled={!started} className={styles.cell} onClick={onClick}> {data} </Button>
     )
 }
 
@@ -132,9 +140,18 @@ function PlayerCard({player, style}){
 
 function Title(){
 
+    const {started} = useIsGameStartedStore()
+    const {xIsNext} = useXIsNextStore()
+
+    function showText(){
+        if (!started) return "Game not started";
+
+        return xIsNext ? "O turn" : "X turn"
+    }
+
     return (
         <Typography variant={"h5"}>
-            Game not started
+            {showText()}
         </Typography>
     )
 }
