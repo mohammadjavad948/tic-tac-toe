@@ -72,3 +72,17 @@ export const useXIsNextStore = create(
         }
     )
 );
+
+
+export const useIsGameStartedStore = create(
+    combine(
+        {started: false},
+        (set) => {
+            return {
+                set: (stat: boolean) => {
+                    set({started: stat})
+                }
+            }
+        }
+    )
+);
