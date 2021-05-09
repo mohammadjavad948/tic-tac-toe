@@ -3,10 +3,7 @@ import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
 import {Icon, Typography} from "@material-ui/core";
 import {usePlayerStore} from "./GameStore";
-import {useWindowSize} from "./useWindowResize";
-import {useSpring, animated} from "react-spring";
-import {useDrag} from "react-use-gesture";
-import GameFeatures from "./GameFeatures";
+import {useTransition, animated} from "react-spring";
 
 interface Prop{
     socket: Socket
@@ -15,8 +12,6 @@ interface Prop{
 export const Game: FC<Prop> = (prop) => {
 
     const {addPlayer, removePlayer} = usePlayerStore();
-
-    const size = useWindowSize();
 
     useEffect(() => {
 
@@ -31,15 +26,11 @@ export const Game: FC<Prop> = (prop) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    function showHandle(){
-        if (size.width < 800) return <MobilePlayer />
-    }
-
     return (
         <div className={styles.container}>
             <Title />
             <Board />
-            {showHandle()}
+            <Players />
         </div>
     )
 }
@@ -70,50 +61,57 @@ function Board(){
     )
 }
 
-function MobilePlayer(){
+function Players(){
 
-    const size = useWindowSize();
+    const {players} = usePlayerStore();
 
-    const [animation, api] = useSpring(() => {
-        return {
-            y: 0
+    const transition = useTransition(
+        players,
+        {
+            from: (item, index) => {
+                return { y: index * 60, opacity: 0 }
+            },
+            leave: (item, index) => {
+                return { y: index * 60, opacity: 0 }
+            },
+            enter: (item, index) => {
+                return { y: index * 70, opacity: 1 }
+            },
+            update: (item, index) => {
+                return { y: index * 70 }
+            },
         }
-    });
+    );
 
-    const bind = useDrag((state) => {
-        const {movement: [,oy], down, direction: [, y]} = state;
-
-        const last = animation.y.get();
-
-        api({
-            y: oy + last
-        });
-
-        if (!down){
-            const dir = y > 0 ? -1 : 1;
-
-            if (dir === -1){
-                api({
-                    y: 0
-                })
-            }
-
-            if (dir === 1){
-                api({
-                    y: - (size.height - 30)
-                })
-            }
-        }
-    })
-
-    return <animated.div {...bind()} className={styles.mobilePlayer} style={{...animation, top: size.height - 30}}>
-        <div className={styles.handle}>
-            <Icon>
-                expand_less
-            </Icon>
+    return (
+        <div style={{width: '100%', position: 'relative'}}>
+            <Typography variant={"h6"}>
+                Players
+            </Typography>
+            {transition((style, item) => (
+                <PlayerCard player={item} style={style}/>
+            ))}
         </div>
-        <GameFeatures style={{height: size.height - 50}} className={styles.player}/>
-    </animated.div>
+    )
+}
+
+// @ts-ignore
+function PlayerCard({player, style}){
+
+    return (
+        <animated.div className={styles.playerCard} style={{top: style.y.to((x: any) => (x + 28) + 'px'), opacity: style.opacity}}>
+            <span className={styles.playerLogo}>
+                {
+                    player.role !== 'observer' ?
+                        player.role :
+                        <Icon>
+                            visibility
+                        </Icon>
+                }
+            </span>
+            <span>{player.name}</span>
+        </animated.div>
+    )
 }
 
 function Title(){
