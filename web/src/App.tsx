@@ -22,8 +22,7 @@ function App() {
     typography: {
       allVariants: {color: '#001858'},
       body1: {color: '#172c66'},
-      body2: {color: '#172c66'},
-      button: {color: '#001858', backgroundColor: '#f582ae'}
+      body2: {color: '#172c66'}
     }
   });
 

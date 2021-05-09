@@ -81,7 +81,7 @@ function BoardTile({data, onClick}){
     const {started} = useIsGameStartedStore();
 
     return (
-        <Button disabled={!started} className={styles.cell} onClick={onClick}> {data} </Button>
+        <Button disabled={!started} variant={"outlined"} className={styles.cell} onClick={onClick}> {data} </Button>
     )
 }
 
