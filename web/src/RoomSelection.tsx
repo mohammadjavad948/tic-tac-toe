@@ -88,7 +88,7 @@ export const RoomSelection: FC<Props> = (props) => {
         <div className={style.container}>
            <NewRoom create={create}/>
            <Typography variant={"h5"}>Rooms</Typography>
-           <div className={style.roomsContainer}>
+           <div className={style.roomsContainer} style={{height: (rooms.length + 1) * 90}}>
                {transitions((style, item) => (
                    <RoomCard join={join} name={item} style={style}/>
                ))}
