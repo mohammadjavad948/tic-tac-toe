@@ -10,7 +10,7 @@ import {Game} from "./Game";
 import {Connection} from "./Connection";
 import {useConnectionStore} from "./ConnectionStore";
 
-const socket = io('https://rocky-taiga-45985.herokuapp.com/');
+const socket = io('http://localhost:4000/');
 
 export default function Container(){
 
