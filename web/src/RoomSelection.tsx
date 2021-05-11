@@ -178,7 +178,7 @@ function RoomCard({name, style, join}){
                 justifyContent: 'space-between',
             }}>
                 <Typography variant={"body1"}>{name}</Typography>
-                <Button onClick={() => join(name)} variant={"outlined"} size={"small"}>join</Button>
+                <Button onClick={() => join(name)} color={"secondary"} variant={"contained"} size={"small"}>join</Button>
             </CardContent>
         </AnimatedCard>
     )

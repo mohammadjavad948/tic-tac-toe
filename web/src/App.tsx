@@ -11,8 +11,8 @@ function App() {
         default: '#fef6e4'
       },
       secondary: {
-        main: '#f3d2c1',
-        contrastText: '#001858'
+        main: '#ef9368',
+        contrastText: '#092065'
       },
       primary: {
         main: '#8bd3dd',
