@@ -51,15 +51,33 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
         // @ts-ignore
         const roomName = socket.room;
 
+        const winner = calculateWinner(rooms.get(roomName).board);
+
+        if (winner !== null){
+
+            io.in(roomName).emit('game:winner', winner);
+
+           clearBoard();
+
+            return null;
+        }
+
         if (!rooms.get(roomName).board.includes(null)){
-
-            rooms.get(roomName).board = new Array(9).fill(null);
-
-            io.in(roomName).emit('game:board', rooms.get(roomName).board);
+            clearBoard();
         }
     }
 
+    function clearBoard(){
+        // @ts-ignore
+        const roomName = socket.room;
+
+        rooms.get(roomName).board = new Array(9).fill(null);
+
+        io.in(roomName).emit('game:board', rooms.get(roomName).board);
+    }
+
     function calculateWinner(squares: any) {
+
         const lines = [
             [0, 1, 2],
             [3, 4, 5],
@@ -70,12 +88,14 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
             [0, 4, 8],
             [2, 4, 6],
         ];
+
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
                 return squares[a];
             }
         }
+
         return null;
     }
 }
