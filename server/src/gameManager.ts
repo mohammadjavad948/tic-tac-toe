@@ -14,6 +14,8 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
         if(!playerTurn) return null;
 
        changeBoardSquare(block);
+
+       checkBoard();
     }
 
     // helper functions
@@ -43,5 +45,17 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
         rooms.get(roomName).xIsNext = !rooms.get(roomName).xIsNext;
 
         io.in(roomName).emit('game:xIsNext', rooms.get(roomName).xIsNext);
+    }
+
+    function checkBoard(){
+        // @ts-ignore
+        const roomName = socket.room;
+
+        if (!rooms.get(roomName).board.includes(null)){
+
+            rooms.get(roomName).board = new Array(9).fill(null);
+
+            io.in(roomName).emit('game:board', rooms.get(roomName).board);
+        }
     }
 }
