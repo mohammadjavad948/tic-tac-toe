@@ -4,6 +4,7 @@ import styles from './game.module.css';
 import {Button, Icon, Typography} from "@material-ui/core";
 import {useBoardStore, useIsGameStartedStore, usePlayerStore, useXIsNextStore} from "./GameStore";
 import {useTransition, animated} from "react-spring";
+import {TitleAnimation} from "./TitleAnimation";
 
 interface Prop{
     socket: Socket
@@ -150,8 +151,10 @@ function Title(){
     }
 
     return (
-        <Typography variant={"h5"}>
-            {showText()}
-        </Typography>
+        <TitleAnimation style={{height: '40px', overflow: 'hidden'}}>
+            <Typography variant={"h5"}>
+                {showText()}
+            </Typography>
+        </TitleAnimation>
     )
 }
