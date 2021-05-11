@@ -76,6 +76,7 @@ export async function registerGameManager(io, socket: Socket, rooms: Map<string,
         io.in(roomName).emit('game:board', rooms.get(roomName).board);
     }
 
+    // hapity hopity. your code is now my property :)
     function calculateWinner(squares: any) {
 
         const lines = [
