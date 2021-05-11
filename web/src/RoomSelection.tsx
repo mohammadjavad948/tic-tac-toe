@@ -13,10 +13,12 @@ import {
     Typography,
     useTheme
 } from "@material-ui/core";
-import {useTransition, a} from 'react-spring';
+import {useTransition, a, useSpring} from 'react-spring';
 import {useBoardStore, useGameStore, usePlayerStore} from "./GameStore";
+import {useDrag} from "react-use-gesture";
 
 const AnimatedCard = a(Card)
+const AnimatedFab = a(Fab)
 
 interface Props{
     socket: Socket
@@ -113,14 +115,24 @@ function NewRoom({create}){
         setOpen(false);
     }
 
+    const [animation, api] = useSpring(() => {
+        return {x: 0, y: 0}
+    })
+
+    const bind = useDrag(state => {
+        const {down, movement: [x, y]} = state;
+
+        api.start({x: down ? x : 0, y: down ? y : 0})
+    })
+
     return (
         <div>
             <div className={style.addFab}>
-                <Fab onClick={fabClick} color="primary" aria-label="add">
+                <AnimatedFab {...bind()} style={animation} onClick={fabClick} color="primary" aria-label="add">
                     <Icon>
                         add
                     </Icon>
-                </Fab>
+                </AnimatedFab>
             </div>
             <NewRoomDialog create={create} open={open} close={close}/>
         </div>
