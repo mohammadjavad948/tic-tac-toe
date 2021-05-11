@@ -26,6 +26,11 @@ function App() {
     }
   });
 
+  const dark = createMuiTheme({
+    palette: {
+      type: 'dark',
+    }
+  });
 
   return (
     <ThemeProvider theme={light}>
