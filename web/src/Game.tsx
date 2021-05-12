@@ -5,6 +5,7 @@ import {Button, Icon, Typography} from "@material-ui/core";
 import {useBoardStore, useIsGameStartedStore, usePlayerStore, useXIsNextStore} from "./GameStore";
 import {useTransition, animated} from "react-spring";
 import {TitleAnimation} from "./TitleAnimation";
+import {useSocketIdStore} from "./SocketIdStore";
 
 interface Prop{
     socket: Socket
@@ -123,6 +124,8 @@ function Players(){
 // @ts-ignore
 function PlayerCard({player, style}){
 
+    const {id} = useSocketIdStore();
+
     return (
         <animated.div className={styles.playerCard} style={{top: style.y.to((x: any) => (x + 28) + 'px'), opacity: style.opacity}}>
             <span className={styles.playerLogo}>
@@ -134,7 +137,7 @@ function PlayerCard({player, style}){
                         </Icon>
                 }
             </span>
-            <span>{player.name}</span>
+            <span>{player.name} {player.id === id ? ' (you)' : ''}</span>
         </animated.div>
     )
 }
