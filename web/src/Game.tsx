@@ -13,19 +13,23 @@ interface Prop{
 
 export const Game: FC<Prop> = (prop) => {
 
-    const {addPlayer, removePlayer} = usePlayerStore();
+    const {addPlayer, removePlayer, sortPlayer} = usePlayerStore();
     const {set: setBoard} = useBoardStore();
     const {set: setXIsNext} = useXIsNextStore();
     const {set: setIsGameStarted} = useIsGameStartedStore();
 
     useEffect(() => {
 
+        sortPlayer()
+
         prop.socket.on('room:user:join', (res: any) => {
             addPlayer(res);
+            sortPlayer();
         });
 
         prop.socket.on('room:user:leave', (id: any) => {
             removePlayer(id);
+            sortPlayer();
         });
 
         prop.socket.on('game:board', (res: any) => {

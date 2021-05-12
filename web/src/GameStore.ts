@@ -23,7 +23,8 @@ interface PlayerStoreI extends State{
     }[],
     setPlayers: (player: any) => void,
     addPlayer: (player: any) => void,
-    removePlayer: (id: string) => void
+    removePlayer: (id: string) => void,
+    sortPlayer: () => void
 }
 
 export const usePlayerStore = create<PlayerStoreI>(set => {
@@ -40,6 +41,25 @@ export const usePlayerStore = create<PlayerStoreI>(set => {
         removePlayer: (id) => {
             set(state => {
                 return {players: state.players.filter(e => e.id !== id)}
+            })
+        },
+        sortPlayer: () => {
+            set(state => {
+                const array = [...state.players];
+
+                array.sort((a, b) => {
+                    if(b.role === 'X' || b.role === 'O'){
+                        return 1;
+                    }
+
+                    if(a.role === 'X' || a.role === 'O'){
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                return {players: array}
             })
         }
     }
