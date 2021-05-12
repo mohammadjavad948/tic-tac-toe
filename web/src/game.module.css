@@ -36,6 +36,10 @@
     position: absolute;
 }
 
+.greenDot{
+    margin-left: auto;
+}
+
 .playerLogo{
     font-size: 26px;
     display: flex;

@@ -138,6 +138,10 @@ function PlayerCard({player, style}){
                 }
             </span>
             <span>{player.name} {player.id === id ? ' (you)' : ''}</span>
+
+            <svg className={styles.greenDot} height="20" width="20">
+                <circle cx="10" cy="10" r="10" fill="green" />
+            </svg>
         </animated.div>
     )
 }
