@@ -3,7 +3,7 @@ import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
 import {Button, Icon, Typography} from "@material-ui/core";
 import {useBoardStore, useIsGameStartedStore, usePlayerStore, useXIsNextStore} from "./GameStore";
-import {useTransition, animated} from "react-spring";
+import {useTransition, animated, useSpring} from "react-spring";
 import {TitleAnimation} from "./TitleAnimation";
 import {useSocketIdStore} from "./SocketIdStore";
 
@@ -125,6 +125,22 @@ function Players(){
 function PlayerCard({player, style}){
 
     const {id} = useSocketIdStore();
+    const {xIsNext} = useXIsNextStore();
+
+    function isPlayerTurn(): boolean{
+        if(player.role === 'observer') return false;
+
+        if (player.role === 'X' && xIsNext) return false;
+
+        if (player.role === 'O' && !xIsNext) return false;
+
+        return true;
+    }
+
+    const animation = useSpring({
+       scale: isPlayerTurn() ? 1 : 0,
+       opacity: isPlayerTurn() ? 1 : 0,
+    });
 
     return (
         <animated.div className={styles.playerCard} style={{top: style.y.to((x: any) => (x + 28) + 'px'), opacity: style.opacity}}>
@@ -139,9 +155,9 @@ function PlayerCard({player, style}){
             </span>
             <span>{player.name} {player.id === id ? ' (you)' : ''}</span>
 
-            <svg className={styles.greenDot} height="20" width="20">
-                <circle cx="10" cy="10" r="10" fill="green" />
-            </svg>
+            <animated.svg style={animation} className={styles.greenDot} height="20" width="20">
+                <circle cx="10" cy="10" r="10" fill="#3cd83c" />
+            </animated.svg>
         </animated.div>
     )
 }
