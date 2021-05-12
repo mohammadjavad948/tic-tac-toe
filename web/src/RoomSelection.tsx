@@ -147,6 +147,14 @@ function NewRoomDialog(props) {
         setName(e.target.value);
     }
 
+    function handleEnter(event: any){
+        if (event.keyCode !== 13) return null;
+
+        if (name === '') return null;
+
+        create();
+    }
+
     function create(){
         props.create(name);
         close()
@@ -162,7 +170,7 @@ function NewRoomDialog(props) {
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle id="simple-dialog-title">create new room</DialogTitle>
             <div className={style.form}>
-                <TextField label={"name"} onChange={change} variant={"outlined"}/>
+                <TextField onKeyUp={handleEnter} label={"name"} onChange={change} variant={"outlined"}/>
                 <Button variant={"contained"} onClick={create} disabled={name === ''} color={"primary"}>create</Button>
             </div>
         </Dialog>
