@@ -144,16 +144,24 @@ function Title(){
     const {started} = useIsGameStartedStore()
     const {xIsNext} = useXIsNextStore()
 
-    function showText(){
-        if (!started) return "Game not started";
+    const [text, changeText] = useState('');
 
-        return xIsNext ? "O turn" : "X turn"
-    }
+    useEffect(() => {
+
+        function showText(): string{
+            if (!started) return "Game not started";
+
+            return xIsNext ? "O turn" : "X turn";
+        }
+
+        changeText(showText());
+
+    }, [started, xIsNext])
 
     return (
         <TitleAnimation style={{height: '40px', overflow: 'hidden'}}>
             <Typography variant={"h5"}>
-                {showText()}
+                {text}
             </Typography>
         </TitleAnimation>
     )
