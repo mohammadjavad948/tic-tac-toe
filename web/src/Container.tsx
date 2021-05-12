@@ -9,6 +9,7 @@ import {useGameStore} from "./GameStore";
 import {Game} from "./Game";
 import {Connection} from "./Connection";
 import {useConnectionStore} from "./ConnectionStore";
+import {useSocketIdStore} from "./SocketIdStore";
 
 const socket = io('http://localhost:4000/');
 
@@ -17,12 +18,15 @@ export default function Container(){
     const {name} = useNameStore();
     const {inRoom} = useGameStore();
     const {up, down, changeMessage} = useConnectionStore();
+    const {set: setSocketId} = useSocketIdStore();
 
     useEffect(() => {
 
         socket.on('connect', () => {
             Logger.info('ws', 'connected to server')
             Logger.info('ws', `id: ${socket.id}`);
+
+            setSocketId(socket.id)
 
             changeMessage('connected');
             down();
