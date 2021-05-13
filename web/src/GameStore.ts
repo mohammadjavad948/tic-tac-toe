@@ -106,3 +106,17 @@ export const useIsGameStartedStore = create(
         }
     )
 );
+
+
+export const useWinnerStore = create(
+    combine(
+        {winner: null},
+        (set) => {
+            return {
+                set: (stat: any) => {
+                    set({winner: stat})
+                }
+            }
+        }
+    )
+);

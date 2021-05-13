@@ -15,7 +15,8 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
     // create new room
     socket.on('room:create', (name: string, callback: any) => {
         // check if room with that name exists return error
-        if (rooms.has(name)) {
+	// @ts-ignore
+        if (rooms.has(name) || socket.room !== undefined) {
 
             return callback({
                 ok: false,
@@ -59,9 +60,10 @@ export async function registerRoomManager(io, socket: Socket, rooms: Map<string,
 
     // join new room
     socket.on('room:join', (name: string, callback: any) => {
-        // @ts-ignore
+        
         // check if user have name and room exists
-        if(!rooms.has(name) || socket.name === undefined){
+        // @ts-ignore
+        if(!rooms.has(name) || socket.name === undefined || socket.room !== undefined){
             return callback({
                 ok: false,
                 message: 'invalid data'
