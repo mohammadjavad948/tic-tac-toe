@@ -54,7 +54,7 @@ export const Game: FC<Prop> = (prop) => {
 
             setTimeout(() => {
                 setWinner(null);
-            }, 1000);
+            }, 5000);
         })
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
