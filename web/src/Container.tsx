@@ -11,7 +11,7 @@ import {Connection} from "./Connection";
 import {useConnectionStore} from "./ConnectionStore";
 import {useSocketIdStore} from "./SocketIdStore";
 
-const socket = io('http://localhost:4000/');
+const socket = io('https://tic-tac-toe-react-javad.herokuapp.com/');
 
 export default function Container(){
 
