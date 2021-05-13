@@ -2,7 +2,7 @@ import {Socket} from "socket.io-client";
 import {FC, useEffect, useRef, useState} from "react";
 import styles from './game.module.css';
 import {Button, Icon, Typography} from "@material-ui/core";
-import {useBoardStore, useIsGameStartedStore, usePlayerStore, useXIsNextStore} from "./GameStore";
+import {useBoardStore, useIsGameStartedStore, usePlayerStore, useWinnerStore, useXIsNextStore} from "./GameStore";
 import {useTransition, animated, useSpring} from "react-spring";
 import {TitleAnimation} from "./TitleAnimation";
 import {useSocketIdStore} from "./SocketIdStore";
@@ -17,6 +17,7 @@ export const Game: FC<Prop> = (prop) => {
     const {set: setBoard} = useBoardStore();
     const {set: setXIsNext} = useXIsNextStore();
     const {set: setIsGameStarted} = useIsGameStartedStore();
+    const {set: setWinner} = useWinnerStore();
 
     useEffect(() => {
 
@@ -42,6 +43,18 @@ export const Game: FC<Prop> = (prop) => {
 
         prop.socket.on('game:start', (res: any) => {
             setIsGameStarted(true);
+        });
+
+        prop.socket.on('game:stop', (res: any) => {
+            setIsGameStarted(false);
+        });
+
+        prop.socket.on('game:winner', (res: any) => {
+            setWinner(res);
+
+            setTimeout(() => {
+                setWinner(null);
+            }, 1000);
         })
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,12 +183,15 @@ function Title(){
 
     const {started} = useIsGameStartedStore()
     const {xIsNext} = useXIsNextStore()
+    const {winner} = useWinnerStore();
 
     const [text, changeText] = useState('');
 
     useEffect(() => {
 
         function showText(): string{
+            if (winner !== null) return 'Winner is ' + winner;
+
             if (!started) return "Game not started";
 
             return xIsNext ? "O turn" : "X turn";
@@ -183,7 +199,7 @@ function Title(){
 
         changeText(showText());
 
-    }, [started, xIsNext])
+    }, [started, xIsNext, winner])
 
     return (
         <TitleAnimation style={{height: '40px', overflow: 'hidden'}}>
