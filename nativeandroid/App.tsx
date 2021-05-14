@@ -1,12 +1,13 @@
 import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
 
 export default function App() {
   return (
-    <SafeAreaView>
+    <PaperProvider>
       <View>
-        <Text>Hmmmm</Text>
+        <Text>Hmm</Text>
       </View>
-    </SafeAreaView>
+    </PaperProvider>
   );
 }
