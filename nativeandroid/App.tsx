@@ -5,8 +5,8 @@ import {Provider as PaperProvider} from 'react-native-paper';
 export default function App() {
   return (
     <PaperProvider>
-      <View>
-        <Text>Hmm</Text>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text style={{fontSize: 50}}>yesss</Text>
       </View>
     </PaperProvider>
   );
