@@ -41,7 +41,11 @@ export function AskName() {
           onChangeText={text => setText(text)}
         />
       </View>
-      <Button disabled={loading} onPress={saveName} mode={'contained'} loading={loading}>
+      <Button
+        disabled={loading}
+        onPress={saveName}
+        mode={'contained'}
+        loading={loading}>
         Go
       </Button>
     </View>
