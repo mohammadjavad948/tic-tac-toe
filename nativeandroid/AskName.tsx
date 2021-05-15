@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import { Button, Text, TextInput } from "react-native-paper";
+import {Button, Text, TextInput} from 'react-native-paper';
 
 const style = StyleSheet.create({
   container: {
@@ -20,6 +20,16 @@ const style = StyleSheet.create({
 
 export function AskName() {
   const [text, setText] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  function saveName() {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }
+
   return (
     <View style={style.container}>
       <Text style={style.greeting}>Hi whats your name?</Text>
@@ -31,7 +41,7 @@ export function AskName() {
           onChangeText={text => setText(text)}
         />
       </View>
-      <Button mode={'contained'} loading={true}>
+      <Button disabled={loading} onPress={saveName} mode={'contained'} loading={loading}>
         Go
       </Button>
     </View>
