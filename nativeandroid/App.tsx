@@ -1,13 +1,12 @@
-import React from 'react';
-import {Text, View} from 'react-native';
-import {Provider as PaperProvider} from 'react-native-paper';
+import React from "react";
+import {Provider as PaperProvider } from "react-native-paper";
+import { AskName } from "./AskName";
 
 export default function App() {
+
   return (
     <PaperProvider>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{fontSize: 50}}>yesss</Text>
-      </View>
+      <AskName />
     </PaperProvider>
   );
 }
