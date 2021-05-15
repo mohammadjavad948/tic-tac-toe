@@ -5,13 +5,13 @@
 
     <application
       android:name=".MainApplication"
-      android:label="@string/app_name"
+      android:label="tic tac toe"
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
-        android:label="@string/app_name"
+        android:label="tic tac toe"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize">
