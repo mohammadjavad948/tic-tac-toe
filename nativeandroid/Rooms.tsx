@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import { Button, Card, IconButton, Text, Title } from "react-native-paper";
+import {Button, Card, IconButton, Text, Title} from 'react-native-paper';
 import {useTransition, a} from 'react-spring/native';
 import {io} from 'socket.io-client';
 
