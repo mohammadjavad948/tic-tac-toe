@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button, Text, TextInput} from 'react-native-paper';
+import {useNameStore} from './nameStore';
+import {useHistory} from 'react-router-native';
 
 const style = StyleSheet.create({
   container: {
@@ -21,13 +23,15 @@ const style = StyleSheet.create({
 export function AskName() {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
+  const {set: setName} = useNameStore();
+
+  const history = useHistory();
 
   function saveName() {
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    history.push('/room');
+    setName(text);
   }
 
   return (
