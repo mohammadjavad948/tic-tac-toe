@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {Button, Card, Text, Title} from 'react-native-paper';
+import { Button, Card, IconButton, Text, Title } from "react-native-paper";
 import {useTransition, a} from 'react-spring/native';
 import {io} from 'socket.io-client';
 
@@ -74,9 +74,7 @@ function RoomCard({animation, item}) {
     <a.View style={[animation, style.card]}>
       <Card.Content style={style.cardContent}>
         <Text>{item}</Text>
-        <Button mode={'contained'} color={'pink'}>
-          join
-        </Button>
+        <IconButton icon="angle-right" color={'pink'} />
       </Card.Content>
     </a.View>
   );
