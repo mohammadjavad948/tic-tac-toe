@@ -74,7 +74,7 @@ function RoomCard({animation, item}) {
     <a.View style={[animation, style.card]}>
       <Card.Content style={style.cardContent}>
         <Text>{item}</Text>
-        <Button mode={'contained'} compact={true} color={'pink'}>
+        <Button mode={'contained'} color={'pink'}>
           join
         </Button>
       </Card.Content>
