@@ -32,23 +32,23 @@ function Routing() {
     from: {
       opacity: 0,
       position: 'absolute',
-      right: -300,
+      right: 300,
     },
     enter: {
       opacity: 1,
-      position: 'relative',
+      position: 'absolute',
       right: 0,
     },
     leave: {
       opacity: 0,
       position: 'absolute',
-      right: 300,
+      right: -300,
     },
   });
 
   return transitions((props, item) => (
     // @ts-ignore
-    <a.View style={[props, {flex: 1}]}>
+    <a.View style={[props, {width: '100%', height: '100%'}]}>
       <Switch location={item}>
         <Route path="/room">
           <Rooms />
