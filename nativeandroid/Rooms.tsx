@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Card, Text, Title} from 'react-native-paper';
 import {useTransition, a} from 'react-spring/native';
+import {io} from 'socket.io-client';
 
-const AnimatedCard = a(Card);
+const socket = io('https://tic-tac-toe-react-javad.herokuapp.com/');
 
 const style = StyleSheet.create({
   container: {
@@ -13,6 +14,7 @@ const style = StyleSheet.create({
   card: {
     width: '90%',
     position: 'absolute',
+    padding: 5,
   },
   cardContainer: {
     width: '100%',
@@ -28,6 +30,14 @@ const style = StyleSheet.create({
 
 export default function Rooms() {
   const [room, setRoom] = useState(['hmm', 'more', 'srfds', 'sfsef']);
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('connected');
+      socket.emit('register:name', 'test');
+      socket.onAny(console.log);
+    });
+  }, []);
 
   const transitions = useTransition(room, {
     from: (item, index) => {
@@ -61,13 +71,13 @@ export default function Rooms() {
 // @ts-ignore
 function RoomCard({animation, item}) {
   return (
-    <AnimatedCard style={[animation, style.card]}>
+    <a.View style={[animation, style.card]}>
       <Card.Content style={style.cardContent}>
         <Text>{item}</Text>
         <Button mode={'contained'} compact={true} color={'pink'}>
           join
         </Button>
       </Card.Content>
-    </AnimatedCard>
+    </a.View>
   );
 }
