@@ -3,6 +3,7 @@ import {Provider as PaperProvider } from "react-native-paper";
 import { AskName } from "./AskName";
 import SplashScreen from 'react-native-splash-screen';
 import { NativeRouter, Switch, Route } from "react-router-native";
+import Rooms from "./Rooms";
 
 export default function App() {
   useEffect(() => {
@@ -13,7 +14,10 @@ export default function App() {
     <NativeRouter>
       <PaperProvider>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/">
+            <Rooms />
+          </Route>
+          <Route path="/sss" exact>
             <AskName />
           </Route>
         </Switch>
