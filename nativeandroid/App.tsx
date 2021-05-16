@@ -32,14 +32,17 @@ function Routing() {
     from: {
       opacity: 0,
       position: 'absolute',
+      right: -300,
     },
     enter: {
       opacity: 1,
       position: 'relative',
+      right: 0,
     },
     leave: {
       opacity: 0,
       position: 'absolute',
+      right: 300,
     },
   });
 
