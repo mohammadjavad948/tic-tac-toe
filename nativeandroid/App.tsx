@@ -20,11 +20,11 @@ export default function App() {
           icon: props => <Icon {...props} />,
         }}>
         <Switch>
-          <Route path="/">
+          <Route path="/room">
             <Rooms />
             <NewRoom />
           </Route>
-          <Route path="/sss" exact>
+          <Route path="/" exact>
             <AskName />
           </Route>
         </Switch>
