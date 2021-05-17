@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import { Card, Divider, IconButton, Text, Title } from "react-native-paper";
+import {Card, Divider, IconButton, Text, Title} from 'react-native-paper';
 import {useTransition, a} from 'react-spring/native';
 import {Socket} from 'socket.io-client';
 
