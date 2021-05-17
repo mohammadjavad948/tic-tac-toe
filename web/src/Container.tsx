@@ -11,7 +11,7 @@ import {Connection} from "./Connection";
 import {useConnectionStore} from "./ConnectionStore";
 import {useSocketIdStore} from "./SocketIdStore";
 
-const socket = io('https://tic-tac-toe-react-javad.herokuapp.com/');
+const socket = io('https://heroku-i-love-you.herokuapp.com/');
 
 export default function Container(){
 
