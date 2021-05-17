@@ -21,7 +21,7 @@ jobs:
           cd nativeandroid && yarn install
       - name: Build Android Release
         run: |
-          cd nativeandroid/android && ./gradlew assembleRelease
+          cd nativeandroid/android && chmod +x ./gradlew && ./gradlew assembleRelease
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
