@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {Card, IconButton, Text, Title} from 'react-native-paper';
+import { Card, Divider, IconButton, Text, Title } from "react-native-paper";
 import {useTransition, a} from 'react-spring/native';
 import {Socket} from 'socket.io-client';
 
@@ -35,23 +35,21 @@ export default function Rooms(props: Prop) {
   const [room, setRooms] = useState<string[]>([]);
 
   useEffect(() => {
-    props.socket.on('connect', () => {
-      props.socket.emit('rooms:all', (res: any) => {
-        setRooms(res.rooms);
+    props.socket.emit('rooms:all', (res: any) => {
+      setRooms(res.rooms);
+    });
+
+    props.socket.on('room:new', (name: string) => {
+      setRooms(s => {
+        return [...s, name];
       });
+    });
 
-      props.socket.on('room:new', (name: string) => {
-        setRooms(s => {
-          return [...s, name];
-        });
-      });
+    props.socket.on('room:delete', (name: string) => {
+      setRooms(s => {
+        const newList = s.filter(e => e !== name);
 
-      props.socket.on('room:delete', (name: string) => {
-        setRooms(s => {
-          const newList = s.filter(e => e !== name);
-
-          return newList;
-        });
+        return newList;
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,6 +96,7 @@ function RoomCard({animation, item}) {
         <Text>{item}</Text>
         <IconButton onPress={join} icon="angle-right" color={'pink'} />
       </Card.Content>
+      <Divider />
     </a.View>
   );
 }
