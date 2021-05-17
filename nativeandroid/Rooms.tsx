@@ -27,7 +27,7 @@ const style = StyleSheet.create({
 });
 
 export default function Rooms() {
-  const [room, setRoom] = useState(['hmm', 'more', 'srfds', 'sfsef']);
+  const [room, setRoom] = useState([]);
 
   const transitions = useTransition(room, {
     from: (item, index) => {
