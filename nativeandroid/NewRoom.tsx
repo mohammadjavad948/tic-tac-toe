@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import { FAB, Button, Paragraph, Dialog, Portal, TextInput } from "react-native-paper";
+import {FAB, Button, Dialog, Portal, TextInput} from 'react-native-paper';
 
 const style = StyleSheet.create({
   container: {
