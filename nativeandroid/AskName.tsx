@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {Button, Text, TextInput} from 'react-native-paper';
 import {useNameStore} from './nameStore';
 import {useHistory} from 'react-router-native';
+import {Socket} from 'socket.io-client';
 
 const style = StyleSheet.create({
   container: {
@@ -20,7 +21,11 @@ const style = StyleSheet.create({
   },
 });
 
-export function AskName() {
+interface Prop {
+  socket: Socket;
+}
+
+export function AskName(props: Prop) {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
   const {set: setName} = useNameStore();
@@ -30,8 +35,12 @@ export function AskName() {
   function saveName() {
     setLoading(true);
 
-    history.push('/room');
-    setName(text);
+    props.socket.emit('register:name', text, (call: any) => {
+      if (call.done) {
+        setName(text);
+        history.push('/room');
+      }
+    });
   }
 
   return (

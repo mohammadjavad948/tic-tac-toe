@@ -75,7 +75,7 @@ function Routing() {
           <NewRoom />
         </Route>
         <Route path="/" exact>
-          <AskName />
+          <AskName socket={socket} />
         </Route>
       </Switch>
     </a.View>
