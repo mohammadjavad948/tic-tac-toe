@@ -10,12 +10,28 @@ import {NewRoom} from './NewRoom';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useConnectionStore} from './connectionStore';
 import {Connection} from './Connection';
+import {io} from 'socket.io-client';
+
+const socket = io('https://heroku-i-love-you.herokuapp.com/');
 
 export default function App() {
-  const {connect} = useConnectionStore();
+  const {connect: connected, set: setConnection} = useConnectionStore();
 
   useEffect(() => {
     SplashScreen.hide();
+
+    socket.on('connect', () => {
+      console.log('connected');
+
+      setConnection(true);
+
+      socket.onAny(console.log);
+
+      socket.on('disconnect', () => {
+        setConnection(false);
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -24,7 +40,7 @@ export default function App() {
         settings={{
           icon: props => <Icon {...props} />,
         }}>
-        {connect ? <Routing /> : <Connection />}
+        {connected ? <Routing /> : <Connection />}
       </PaperProvider>
     </NativeRouter>
   );

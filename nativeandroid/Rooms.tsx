@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {Button, Card, IconButton, Text, Title} from 'react-native-paper';
+import {Card, IconButton, Text, Title} from 'react-native-paper';
 import {useTransition, a} from 'react-spring/native';
-import {io} from 'socket.io-client';
-
-const socket = io('https://tic-tac-toe-react-javad.herokuapp.com/');
 
 const style = StyleSheet.create({
   container: {
@@ -31,14 +28,6 @@ const style = StyleSheet.create({
 
 export default function Rooms() {
   const [room, setRoom] = useState(['hmm', 'more', 'srfds', 'sfsef']);
-
-  useEffect(() => {
-    socket.on('connect', () => {
-      console.log('connected');
-      socket.emit('register:name', 'test');
-      socket.onAny(console.log);
-    });
-  }, []);
 
   const transitions = useTransition(room, {
     from: (item, index) => {
