@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Card, IconButton, Text, Title} from 'react-native-paper';
 import {useTransition, a} from 'react-spring/native';
+import {Socket} from 'socket.io-client';
 
 const style = StyleSheet.create({
   container: {
@@ -26,8 +27,35 @@ const style = StyleSheet.create({
   },
 });
 
-export default function Rooms() {
-  const [room, setRoom] = useState([]);
+interface Prop {
+  socket: Socket;
+}
+
+export default function Rooms(props: Prop) {
+  const [room, setRooms] = useState<string[]>([]);
+
+  useEffect(() => {
+    props.socket.on('connect', () => {
+      props.socket.emit('rooms:all', (res: any) => {
+        setRooms(res.rooms);
+      });
+
+      props.socket.on('room:new', (name: string) => {
+        setRooms(s => {
+          return [...s, name];
+        });
+      });
+
+      props.socket.on('room:delete', (name: string) => {
+        setRooms(s => {
+          const newList = s.filter(e => e !== name);
+
+          return newList;
+        });
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const transitions = useTransition(room, {
     from: (item, index) => {
@@ -60,11 +88,15 @@ export default function Rooms() {
 
 // @ts-ignore
 function RoomCard({animation, item}) {
+  function join() {
+    console.log(item);
+  }
+
   return (
     <a.View style={[animation, style.card]}>
       <Card.Content style={style.cardContent}>
         <Text>{item}</Text>
-        <IconButton icon="angle-right" color={'pink'} />
+        <IconButton onPress={join} icon="angle-right" color={'pink'} />
       </Card.Content>
     </a.View>
   );

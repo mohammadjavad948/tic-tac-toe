@@ -71,7 +71,7 @@ function Routing() {
     <a.View style={[props, {width: '100%', height: '100%'}]}>
       <Switch location={item}>
         <Route path="/room">
-          <Rooms />
+          <Rooms socket={socket}/>
           <NewRoom />
         </Route>
         <Route path="/" exact>
