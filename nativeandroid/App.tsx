@@ -8,8 +8,12 @@ import Rooms from './Rooms';
 import {NewRoom} from './NewRoom';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {useConnectionStore} from './connectionStore';
+import {Connection} from './Connection';
 
 export default function App() {
+  const {connect} = useConnectionStore();
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -20,7 +24,7 @@ export default function App() {
         settings={{
           icon: props => <Icon {...props} />,
         }}>
-        <Routing />
+        {connect ? <Routing /> : <Connection />}
       </PaperProvider>
     </NativeRouter>
   );
