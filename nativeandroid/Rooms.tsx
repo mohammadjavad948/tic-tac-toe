@@ -40,6 +40,8 @@ export default function Rooms(props: Prop) {
     });
 
     props.socket.on('room:new', (name: string) => {
+      if (room.includes(name)) return null;
+
       setRooms(s => {
         return [...s, name];
       });
