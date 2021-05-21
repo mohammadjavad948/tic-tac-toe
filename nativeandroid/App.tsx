@@ -76,7 +76,7 @@ function Routing() {
         </Route>
         <Route path="/room">
           <Rooms socket={socket} />
-          <NewRoom />
+          <NewRoom socket={socket} />
         </Route>
         <Route path="/" exact>
           <AskName socket={socket} />
