@@ -29,7 +29,6 @@ export function Connection() {
     <View style={style.container}>
       <Logo style={style.image} />
       <View style={style.text}>
-        <ActivityIndicator animating={true} />
         <Title style={style.margin}>Connecting</Title>
       </View>
     </View>
