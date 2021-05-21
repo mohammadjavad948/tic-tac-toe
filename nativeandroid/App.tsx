@@ -71,7 +71,7 @@ function Routing() {
     // @ts-ignore
     <a.View style={[props, {width: '100%', height: '100%'}]}>
       <Switch location={item}>
-        <Route>
+        <Route path="/game">
           <Game />
         </Route>
         <Route path="/room">
