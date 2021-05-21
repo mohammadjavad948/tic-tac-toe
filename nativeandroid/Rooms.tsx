@@ -3,6 +3,8 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {Card, Divider, IconButton, Text, Title} from 'react-native-paper';
 import {useTransition, a} from 'react-spring/native';
 import {Socket} from 'socket.io-client';
+import {useHistory} from 'react-router-native';
+import {useBoardStore, usePlayerStore} from './GameStore';
 
 const style = StyleSheet.create({
   container: {
@@ -40,7 +42,9 @@ export default function Rooms(props: Prop) {
     });
 
     props.socket.on('room:new', (name: string) => {
-      if (room.includes(name)) return null;
+      if (room.includes(name)) {
+        return null;
+      }
 
       setRooms(s => {
         return [...s, name];
@@ -79,7 +83,7 @@ export default function Rooms(props: Prop) {
       <Title>Rooms</Title>
       <View style={[style.cardContainer, {height: (room.length + 1) * 80}]}>
         {transitions((animation, item) => (
-          <RoomCard animation={animation} item={item} />
+          <RoomCard animation={animation} item={item} socket={props.socket} />
         ))}
       </View>
     </ScrollView>
@@ -87,9 +91,18 @@ export default function Rooms(props: Prop) {
 }
 
 // @ts-ignore
-function RoomCard({animation, item}) {
+function RoomCard({animation, item, socket}) {
+  const history = useHistory();
+  const {set: setBoard} = useBoardStore();
+  const {setPlayers} = usePlayerStore();
+
   function join() {
-    console.log(item);
+    socket.emit('room:join', item, (res: any) => {
+      setPlayers(res.room.players);
+      setBoard(res.room.board);
+
+      history.push('/game');
+    });
   }
 
   return (
