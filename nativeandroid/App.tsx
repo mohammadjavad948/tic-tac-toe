@@ -40,7 +40,8 @@ export default function App() {
         settings={{
           icon: props => <Icon {...props} />,
         }}>
-        {connected ? <Routing /> : <Connection />}
+        {/*connected ? <Routing /> : <Connection />*/}
+        <Connection />
       </PaperProvider>
     </NativeRouter>
   );
