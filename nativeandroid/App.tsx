@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useConnectionStore} from './connectionStore';
 import {Connection} from './Connection';
 import {io} from 'socket.io-client';
-import Game from "./Game";
+import Game from './Game';
 
 const socket = io('https://heroku-i-love-you.herokuapp.com/');
 
