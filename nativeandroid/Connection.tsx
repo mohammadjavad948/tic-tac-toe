@@ -20,7 +20,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   margin: {
-    marginLeft: 20
+    marginLeft: 20,
   },
 });
 
