@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import { Title } from "react-native-paper";
+import {Title} from 'react-native-paper';
 import Logo from './Logo';
 
 const style = StyleSheet.create({
