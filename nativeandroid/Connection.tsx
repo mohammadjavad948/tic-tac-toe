@@ -1,6 +1,7 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
-import { ActivityIndicator, Button, Title } from "react-native-paper";
+import {StyleSheet, View} from 'react-native';
+import { ActivityIndicator, Title } from "react-native-paper";
+import Logo from './Logo';
 
 const style = StyleSheet.create({
   container: {
@@ -26,7 +27,7 @@ const style = StyleSheet.create({
 export function Connection() {
   return (
     <View style={style.container}>
-      <Image source={require('./logo.png')} style={style.image} />
+      <Logo style={style.image} />
       <View style={style.text}>
         <ActivityIndicator animating={true} />
         <Title style={style.margin}>Connecting</Title>
