@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useConnectionStore} from './connectionStore';
 import {Connection} from './Connection';
 import {io} from 'socket.io-client';
+import Game from "./Game";
 
 const socket = io('https://heroku-i-love-you.herokuapp.com/');
 
@@ -70,8 +71,11 @@ function Routing() {
     // @ts-ignore
     <a.View style={[props, {width: '100%', height: '100%'}]}>
       <Switch location={item}>
+        <Route>
+          <Game />
+        </Route>
         <Route path="/room">
-          <Rooms socket={socket}/>
+          <Rooms socket={socket} />
           <NewRoom />
         </Route>
         <Route path="/" exact>
