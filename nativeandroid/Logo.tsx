@@ -49,14 +49,14 @@ function Logo(props) {
           stroke={theme === 'dark' ? 'white' : 'black'}
           strokeWidth={2}
           strokeDasharray={400}
-          strokeDashoffset={animation.strokeDashoffset}
+          strokeDashoffset={animation.strokeDashoffset.to((x: any) => 800 - x)}
         />
         <Apath
           d="M801.02 695.59l-26.751-26.418c-9.413 9.294-19.134 18.304-28.144 27.975-7.861 8.439-5.358 22.785 4.78 28.168 7.106 3.773 15.984 4.111 22.71-2.41 9.26-8.977 18.281-18.198 27.405-27.315M774.25 668.2l26.722-26.386c-8.758-8.776-17.437-17.632-26.297-26.304-7.9-7.733-19.757-7.82-27.191-.432-7.658 7.61-7.463 19.337.617 27.408 8.648 8.639 17.427 17.149 26.149 25.714"
           stroke={theme === 'dark' ? 'white' : 'black'}
           strokeWidth={2}
-          strokeDasharray={400}
-          strokeDashoffset={animation.strokeDashoffset}
+          strokeDasharray={200}
+          strokeDashoffset={animation.strokeDashoffset.to((x: any) => x / 2)}
         />
         <Path
           d="M835 728.13l-1.218-.804 1.218.804M860.51 701.7l-.829-1.076.829 1.076M859.67 636.83l.898-1.122-.898 1.122"
