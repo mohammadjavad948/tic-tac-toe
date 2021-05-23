@@ -12,6 +12,7 @@ import {useConnectionStore} from './connectionStore';
 import {Connection} from './Connection';
 import {io} from 'socket.io-client';
 import Game from './Game';
+import { PlayerContainer } from "./Players";
 
 const socket = io('https://heroku-i-love-you.herokuapp.com/');
 
@@ -72,7 +73,8 @@ function Routing() {
     <a.View style={[props, {width: '100%', height: '100%'}]}>
       <Switch location={item}>
         <Route path="/game">
-          <Game socket={socket}/>
+          <Game socket={socket} />
+          <PlayerContainer />
         </Route>
         <Route path="/room">
           <Rooms socket={socket} />
