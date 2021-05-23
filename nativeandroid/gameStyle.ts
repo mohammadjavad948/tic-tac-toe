@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   },
   tileTouch: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

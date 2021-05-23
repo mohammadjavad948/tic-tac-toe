@@ -4,15 +4,26 @@ import React, {useEffect, useState} from 'react';
 import {styles} from './gameStyle';
 import {useBoardStore} from './GameStore';
 
-export default function Game() {
+// @ts-ignore
+export default function Game({socket}) {
+  const {set: setBoard} = useBoardStore();
+
+  useEffect(() => {
+    socket.on('game:board', (res: any) => {
+      setBoard(res);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Board />
+      <Board socket={socket} />
     </View>
   );
 }
 
-function Board() {
+// @ts-ignore
+function Board({socket}) {
   const [width, setWidth] = useState(0);
   const {board} = useBoardStore();
 
@@ -29,16 +40,25 @@ function Board() {
   return (
     <View style={styles.board}>
       {board.map((el, index) => {
-        return <Tile width={width} el={el} key={index} index={index} />;
+        return (
+          <Tile
+            socket={socket}
+            width={width}
+            el={el}
+            key={index}
+            index={index}
+          />
+        );
       })}
     </View>
   );
 }
 
 // @ts-ignore
-function Tile({width, el, index}) {
+function Tile({width, el, index, socket}) {
   function click() {
     console.log('click ' + index);
+    socket.emit('game:move', index);
   }
 
   return (
