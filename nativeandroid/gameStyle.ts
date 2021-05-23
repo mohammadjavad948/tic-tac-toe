@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     marginRight: 2.5,
     marginTop: 5,
     borderStyle: 'solid',
-    borderWidth: 1,
+    borderWidth: 0.5,
   },
   tileTouch: {
     flex: 1,
