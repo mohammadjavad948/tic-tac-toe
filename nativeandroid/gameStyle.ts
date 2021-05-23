@@ -28,4 +28,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  tileText: {
+    fontSize: 30,
+  },
 });

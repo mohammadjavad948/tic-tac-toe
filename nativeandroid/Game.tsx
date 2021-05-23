@@ -64,7 +64,7 @@ function Tile({width, el, index, socket}) {
   return (
     <View style={[{width, height: width}, styles.tile]}>
       <TouchableOpacity onPress={click} style={styles.tileTouch}>
-        <Text>{el}</Text>
+        <Text style={styles.tileText}>{el}</Text>
       </TouchableOpacity>
     </View>
   );
