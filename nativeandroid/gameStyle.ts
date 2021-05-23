@@ -15,7 +15,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   tile: {
-    borderColor: 'white',
     borderRadius: 5,
     marginLeft: 2.5,
     marginRight: 2.5,
