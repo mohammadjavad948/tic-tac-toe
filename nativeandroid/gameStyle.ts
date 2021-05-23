@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
   },
   board: {
     maxWidth: 600,
+    marginTop: 10,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
