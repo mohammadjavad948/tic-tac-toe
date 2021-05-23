@@ -1,4 +1,4 @@
-import { Appearance, Dimensions, TouchableOpacity, View } from "react-native";
+import {Appearance, Dimensions, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import {styles} from './gameStyle';
@@ -64,7 +64,15 @@ function Tile({width, el, index, socket}) {
   }
 
   return (
-    <View style={[{width, height: width, borderColor: theme === 'light' ? 'black' : 'white'}, styles.tile]}>
+    <View
+      style={[
+        {
+          width,
+          height: width,
+          borderColor: theme === 'light' ? 'black' : 'white',
+        },
+        styles.tile,
+      ]}>
       <TouchableOpacity onPress={click} style={styles.tileTouch}>
         <Text style={styles.tileText}>{el}</Text>
       </TouchableOpacity>
