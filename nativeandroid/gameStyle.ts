@@ -23,4 +23,9 @@ export const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
   },
+  tileTouch: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

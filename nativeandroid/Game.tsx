@@ -1,4 +1,4 @@
-import {Dimensions, View} from 'react-native';
+import {Dimensions, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import {styles} from './gameStyle';
@@ -29,12 +29,23 @@ function Board() {
   return (
     <View style={styles.board}>
       {board.map((el, index) => {
-        return (
-          <View key={index} style={[{width, height: width}, styles.tile]}>
-            {el}
-          </View>
-        );
+        return <Tile width={width} el={el} key={index} index={index} />;
       })}
+    </View>
+  );
+}
+
+// @ts-ignore
+function Tile({width, el, index}) {
+  function click() {
+    console.log('click ' + index);
+  }
+
+  return (
+    <View style={[{width, height: width}, styles.tile]}>
+      <TouchableOpacity onPress={click} style={styles.tileTouch}>
+        <Text>{el}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
