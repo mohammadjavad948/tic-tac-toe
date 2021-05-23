@@ -13,7 +13,7 @@ export function PlayerContainer() {
 function BilBilak() {
   return (
     <View style={playerStyle.bilbilakContainer}>
-      <View />
+      <View style={playerStyle.bilbilak}/>
     </View>
   );
 }
