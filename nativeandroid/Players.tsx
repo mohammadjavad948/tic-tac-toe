@@ -1,19 +1,28 @@
 import React from 'react';
-import {View} from 'react-native';
+import { TouchableOpacity, View } from "react-native";
 import {playerStyle} from './playersStyle';
+import { useDrag, useGesture } from "react-use-gesture";
+import { useSpring, animated } from 'react-spring/native';
 
 export function PlayerContainer() {
+  const [{ x }, api] = useSpring(() => ({ x: 0 }));
+
+  function press(){
+    console.log('press');
+  }
+
   return (
-    <View style={playerStyle.container}>
-      <BilBilak />
-    </View>
+    <animated.View style={[playerStyle.container, {x}]}>
+      <BilBilak press={press} />
+    </animated.View>
   );
 }
 
-function BilBilak() {
+//@ts-ignore
+function BilBilak({press}) {
   return (
     <View style={playerStyle.bilbilakContainer}>
-      <View style={playerStyle.bilbilak}/>
+      <TouchableOpacity onPress={press} style={playerStyle.bilbilak} />
     </View>
   );
 }
