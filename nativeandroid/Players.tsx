@@ -1,18 +1,26 @@
-import React from 'react';
-import { TouchableOpacity, View } from "react-native";
+import React, {useState} from 'react';
+import {Dimensions, TouchableOpacity, View} from 'react-native';
 import {playerStyle} from './playersStyle';
-import { useDrag, useGesture } from "react-use-gesture";
-import { useSpring, animated } from 'react-spring/native';
+import {useSpring, animated} from 'react-spring/native';
 
 export function PlayerContainer() {
-  const [{ x }, api] = useSpring(() => ({ x: 0 }));
+  const [{top}, api] = useSpring(() => ({
+    top: Dimensions.get('window').height - 100,
+  }));
+  const [up, setUp] = useState(false);
 
-  function press(){
-    console.log('press');
+  function press() {
+    if (up) {
+      api.start({top: Dimensions.get('window').height - 100});
+    } else {
+      api.start({top: 50});
+    }
+
+    setUp(state => !state);
   }
 
   return (
-    <animated.View style={[playerStyle.container, {x}]}>
+    <animated.View style={[playerStyle.container, {top}]}>
       <BilBilak press={press} />
     </animated.View>
   );
