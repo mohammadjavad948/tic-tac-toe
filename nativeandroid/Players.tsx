@@ -5,13 +5,13 @@ import {useSpring, animated} from 'react-spring/native';
 
 export function PlayerContainer() {
   const [{top}, api] = useSpring(() => ({
-    top: Dimensions.get('window').height - 100,
+    top: Dimensions.get('window').height - 75,
   }));
   const [up, setUp] = useState(false);
 
   function press() {
     if (up) {
-      api.start({top: Dimensions.get('window').height - 100});
+      api.start({top: Dimensions.get('window').height - 75});
     } else {
       api.start({top: 50});
     }
@@ -22,6 +22,7 @@ export function PlayerContainer() {
   return (
     <animated.View style={[playerStyle.container, {top}]}>
       <BilBilak press={press} />
+      <Turns />
     </animated.View>
   );
 }
@@ -33,4 +34,11 @@ function BilBilak({press}) {
       <TouchableOpacity onPress={press} style={playerStyle.bilbilak} />
     </View>
   );
+}
+
+function Turns(){
+
+  return (
+    <View style={playerStyle.turnsContainer}></View>
+  )
 }

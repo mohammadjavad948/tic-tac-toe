@@ -26,4 +26,11 @@ export const playerStyle = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: '#a0a0a0',
   },
+  turnsContainer: {
+    width: '100%',
+    height: 75,
+    backgroundColor: theme === 'light' ? '#f1f0f0' : '#6f6f6f',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
