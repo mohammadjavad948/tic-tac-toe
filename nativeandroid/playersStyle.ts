@@ -35,9 +35,11 @@ export const playerStyle = StyleSheet.create({
   },
   playersContainer: {
     width: '100%',
-    height: Dimensions.get('window').height - 100,
+    height: Dimensions.get('window').height - 150,
     borderTopColor: '#7b7b7b',
     borderTopWidth: 5,
     backgroundColor: theme === 'light' ? '#f1f0f0' : '#6f6f6f',
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
   },
 });

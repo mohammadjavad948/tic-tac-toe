@@ -13,7 +13,7 @@ export function PlayerContainer() {
     if (up) {
       api.start({x: 0});
     } else {
-      api.start({x: -1 * (Dimensions.get('window').height - 175)});
+      api.start({x: -1 * (Dimensions.get('window').height - 150)});
     }
 
     setUp(state => !state);
