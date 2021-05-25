@@ -2,15 +2,57 @@ import {Appearance, Dimensions, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import {styles} from './gameStyle';
-import {useBoardStore} from './GameStore';
+import {
+  useBoardStore,
+  usePlayerStore,
+  useWinnerStore,
+  useXIsNextStore,
+  useIsGameStartedStore,
+} from './GameStore';
 
 // @ts-ignore
 export default function Game({socket}) {
+  const {addPlayer, removePlayer, sortPlayer} = usePlayerStore();
   const {set: setBoard} = useBoardStore();
+  const {set: setXIsNext} = useXIsNextStore();
+  const {set: setIsGameStarted} = useIsGameStartedStore();
+  const {set: setWinner} = useWinnerStore();
 
   useEffect(() => {
+    sortPlayer();
+
+    socket.on('room:user:join', (res: any) => {
+      addPlayer(res);
+      sortPlayer();
+    });
+
+    socket.on('room:user:leave', (id: any) => {
+      removePlayer(id);
+      sortPlayer();
+    });
+
     socket.on('game:board', (res: any) => {
       setBoard(res);
+    });
+
+    socket.on('game:xIsNext', (res: any) => {
+      setXIsNext(res);
+    });
+
+    socket.on('game:start', (_: any) => {
+      setIsGameStarted(true);
+    });
+
+    socket.on('game:stop', (_: any) => {
+      setIsGameStarted(false);
+    });
+
+    socket.on('game:winner', (res: any) => {
+      setWinner(res);
+
+      setTimeout(() => {
+        setWinner(null);
+      }, 5000);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
