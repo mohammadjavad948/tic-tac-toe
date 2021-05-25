@@ -7,7 +7,7 @@ import {
   useWinnerStore,
   useXIsNextStore,
 } from './GameStore';
-import { Text, Title } from "react-native-paper";
+import {Title} from 'react-native-paper';
 
 export function PlayerContainer() {
   const [{x}, api] = useSpring(() => ({
