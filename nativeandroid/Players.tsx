@@ -1,7 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, TouchableOpacity, View} from 'react-native';
 import {playerStyle} from './playersStyle';
 import {useSpring, animated} from 'react-spring/native';
+import {
+  useIsGameStartedStore,
+  useWinnerStore,
+  useXIsNextStore,
+} from './GameStore';
+import { Text, Title } from "react-native-paper";
 
 export function PlayerContainer() {
   const [{x}, api] = useSpring(() => ({
@@ -20,7 +26,8 @@ export function PlayerContainer() {
   }
 
   return (
-    <animated.View style={[playerStyle.container, {transform: [{translateY: x}]}]}>
+    <animated.View
+      style={[playerStyle.container, {transform: [{translateY: x}]}]}>
       <BilBilak press={press} />
       <Turns />
       <View style={playerStyle.playersContainer} />
@@ -37,9 +44,32 @@ function BilBilak({press}) {
   );
 }
 
-function Turns(){
+function Turns() {
+  const {started} = useIsGameStartedStore();
+  const {xIsNext} = useXIsNextStore();
+  const {winner} = useWinnerStore();
+
+  const [text, changeText] = useState('');
+
+  useEffect(() => {
+    function showText(): string {
+      if (winner !== null) {
+        return 'Winner is ' + winner;
+      }
+
+      if (!started) {
+        return 'Game not started';
+      }
+
+      return xIsNext ? 'O turn' : 'X turn';
+    }
+
+    changeText(showText());
+  }, [started, xIsNext, winner]);
 
   return (
-    <View style={playerStyle.turnsContainer}></View>
-  )
+    <View style={playerStyle.turnsContainer}>
+      <Title>{text}</Title>
+    </View>
+  );
 }
