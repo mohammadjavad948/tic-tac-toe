@@ -99,8 +99,13 @@ function Board({socket}) {
 // @ts-ignore
 function Tile({width, el, index, socket}) {
   const theme = Appearance.getColorScheme();
+  const {started} = useIsGameStartedStore();
 
   function click() {
+    if (!started) {
+      return null;
+    }
+
     console.log('click ' + index);
     socket.emit('game:move', index);
   }
