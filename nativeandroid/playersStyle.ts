@@ -1,4 +1,4 @@
-import {Appearance, StyleSheet} from 'react-native';
+import { Appearance, Dimensions, StyleSheet } from "react-native";
 
 const theme = Appearance.getColorScheme();
 
@@ -6,10 +6,10 @@ export const playerStyle = StyleSheet.create({
   container: {
     position: 'absolute',
     right: 0,
+    top: Dimensions.get('window').height - 100,
     width: '100%',
-    height: 50,
+    height: Dimensions.get('window').height - 50,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   bilbilakContainer: {
     width: '100%',
@@ -32,5 +32,10 @@ export const playerStyle = StyleSheet.create({
     backgroundColor: theme === 'light' ? '#f1f0f0' : '#6f6f6f',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  playersContainer: {
+    width: '100%',
+    height: Dimensions.get('window').height - 100,
+    backgroundColor: 'red',
   },
 });

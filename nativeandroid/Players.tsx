@@ -4,25 +4,26 @@ import {playerStyle} from './playersStyle';
 import {useSpring, animated} from 'react-spring/native';
 
 export function PlayerContainer() {
-  const [{top}, api] = useSpring(() => ({
-    top: Dimensions.get('window').height - 75,
+  const [{x}, api] = useSpring(() => ({
+    x: 0,
   }));
   const [up, setUp] = useState(false);
 
   function press() {
     if (up) {
-      api.start({top: Dimensions.get('window').height - 75});
+      api.start({x: 0});
     } else {
-      api.start({top: 50});
+      api.start({x: -1 * (Dimensions.get('window').height - 175)});
     }
 
     setUp(state => !state);
   }
 
   return (
-    <animated.View style={[playerStyle.container, {top}]}>
+    <animated.View style={[playerStyle.container, {transform: [{translateY: x}]}]}>
       <BilBilak press={press} />
       <Turns />
+      <View style={playerStyle.playersContainer} />
     </animated.View>
   );
 }
