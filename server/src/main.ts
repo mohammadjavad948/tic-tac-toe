@@ -30,6 +30,11 @@ const io = socketIO(server, {
 let rooms = new Map<string, RoomInterface>();
 
 io.on('connection', (socket: Socket) => {
+    // ping function
+    socket.on("ping", (cb) => {
+        if (typeof cb === "function")
+            cb();
+    });
     registerConnectionManager(io, socket, rooms);
     registerRoomManager(io, socket, rooms);
     registerGameManager(io, socket, rooms);
