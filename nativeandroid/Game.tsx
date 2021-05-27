@@ -59,6 +59,7 @@ export default function Game({socket}) {
 
   return (
     <View style={styles.container}>
+      <Ping ping={10}/>
       <Board socket={socket} />
     </View>
   );
@@ -125,4 +126,14 @@ function Tile({width, el, index, socket}) {
       </TouchableOpacity>
     </View>
   );
+}
+
+// @ts-ignore
+function Ping({ping}){
+
+  return (
+    <View style={styles.ping}>
+      <Text>{ping}</Text>
+    </View>
+  )
 }

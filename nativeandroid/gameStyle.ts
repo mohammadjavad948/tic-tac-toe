@@ -30,4 +30,10 @@ export const styles = StyleSheet.create({
   tileText: {
     fontSize: 30,
   },
+  ping: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'yellow',
+    marginBottom: 10,
+  },
 });
