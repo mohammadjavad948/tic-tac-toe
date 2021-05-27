@@ -1,4 +1,10 @@
-import {Appearance, Dimensions, TouchableOpacity, View} from 'react-native';
+import {
+  Appearance,
+  Dimensions,
+  StatusBar,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Text} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import {styles} from './gameStyle';
@@ -17,6 +23,9 @@ export default function Game({socket}) {
   const {set: setXIsNext} = useXIsNextStore();
   const {set: setIsGameStarted} = useIsGameStartedStore();
   const {set: setWinner} = useWinnerStore();
+
+  const [interval, SetInterval] = useState(null);
+  const [ping, setPing] = useState(100);
 
   useEffect(() => {
     sortPlayer();
@@ -54,12 +63,38 @@ export default function Game({socket}) {
         setWinner(null);
       }, 5000);
     });
+
+    function calculatePing() {
+      const start = Date.now();
+
+      // volatile, so the packet will be discarded if the socket is not connected
+      socket.volatile.emit('ping', () => {
+        const latency = Date.now() - start;
+
+        console.log(latency);
+        setPing(latency);
+      });
+    }
+
+    calculatePing();
+
+    const inter = setInterval(() => {
+      calculatePing();
+    }, 5000);
+
+    // @ts-ignore
+    SetInterval(inter);
+
+    return () => {
+      // @ts-ignore
+      clearInterval(interval);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <View style={styles.container}>
-      <Ping ping={10}/>
+      <Ping ping={ping} />
       <Board socket={socket} />
     </View>
   );
@@ -129,11 +164,21 @@ function Tile({width, el, index, socket}) {
 }
 
 // @ts-ignore
-function Ping({ping}){
+function Ping({ping}) {
+  let color = '';
+
+  if (ping <= 150) {
+    color = '#24ba02';
+  } else if (ping < 500) {
+    color = '#e6a100';
+  } else {
+    color = '#c4060c';
+  }
 
   return (
-    <View style={styles.ping}>
-      <Text>{ping}</Text>
+    <View style={[styles.ping, {backgroundColor: color}]}>
+      <StatusBar backgroundColor={color} />
+      <Text style={{fontSize: 15}}>ping : {ping}</Text>
     </View>
-  )
+  );
 }

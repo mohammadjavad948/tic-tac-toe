@@ -33,7 +33,8 @@ export const styles = StyleSheet.create({
   ping: {
     width: '100%',
     height: 50,
-    backgroundColor: 'yellow',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 10,
   },
 });
