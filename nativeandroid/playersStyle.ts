@@ -43,4 +43,25 @@ export const playerStyle = StyleSheet.create({
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },
+  playerView: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  playerCard: {
+    width: '90%',
+    borderColor: theme === 'dark' ? '#f1f0f0' : '#6f6f6f',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 60,
+    justifyContent: 'flex-start',
+  },
+  playerIcon: {
+    fontSize: 20,
+  },
+  playerName: {
+    marginLeft: 10,
+  }
 });

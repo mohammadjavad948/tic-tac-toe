@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, TouchableOpacity, View} from 'react-native';
+import { Dimensions, ScrollView, TouchableOpacity, View } from "react-native";
 import {playerStyle} from './playersStyle';
 import {useSpring, animated, useTransition, config} from 'react-spring/native';
 import {
-  useIsGameStartedStore,
+  useIsGameStartedStore, usePlayerStore,
   useWinnerStore,
-  useXIsNextStore,
-} from './GameStore';
-import {Title} from 'react-native-paper';
+  useXIsNextStore
+} from "./GameStore";
+import { Text, Title } from "react-native-paper";
 
 const Atitle = animated(Title);
 
@@ -32,7 +32,7 @@ export function PlayerContainer() {
       style={[playerStyle.container, {transform: [{translateY: x}]}]}>
       <BilBilak press={press} />
       <Turns />
-      <View style={playerStyle.playersContainer} />
+      <AllPlayer />
     </animated.View>
   );
 }
@@ -98,4 +98,43 @@ function Turns() {
       })}
     </View>
   );
+}
+
+
+function AllPlayer(){
+
+  const {players} = usePlayerStore();
+
+  const transitions = useTransition(players, {
+    from: (item, index) => {
+      return {top: index * 60, opacity: 0};
+    },
+    leave: (item, index) => {
+      return {top: index * 60, opacity: 0};
+    },
+    enter: (item, index) => {
+      return {top: index * 80, opacity: 1};
+    },
+    update: (item, index) => {
+      return {top: index * 80};
+    },
+  });
+
+  return (
+    <ScrollView style={playerStyle.playersContainer}>
+      <View style={playerStyle.playerView}>
+        <Player />
+      </View>
+    </ScrollView>
+  );
+}
+
+function Player(){
+
+  return (
+    <animated.View style={playerStyle.playerCard}>
+      <Text style={playerStyle.playerIcon}>X</Text>
+      <Text style={playerStyle.playerName}>hmmm</Text>
+    </animated.View>
+  )
 }
