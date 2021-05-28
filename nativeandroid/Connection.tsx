@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Title} from 'react-native-paper';
+import { ActivityIndicator, Title } from "react-native-paper";
 import Logo from './Logo';
 
 const style = StyleSheet.create({
@@ -29,6 +29,7 @@ export function Connection() {
     <View style={style.container}>
       <Logo style={style.image} />
       <View style={style.text}>
+        <ActivityIndicator />
         <Title style={style.margin}>Connecting</Title>
       </View>
     </View>
