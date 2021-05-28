@@ -30,6 +30,7 @@ export const playerStyle = StyleSheet.create({
     width: '100%',
     height: 75,
     backgroundColor: theme === 'light' ? '#f1f0f0' : '#6f6f6f',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },

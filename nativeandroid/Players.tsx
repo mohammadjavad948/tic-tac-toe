@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Dimensions, TouchableOpacity, View} from 'react-native';
 import {playerStyle} from './playersStyle';
-import {useSpring, animated} from 'react-spring/native';
+import {useSpring, animated, useTransition, config} from 'react-spring/native';
 import {
   useIsGameStartedStore,
   useWinnerStore,
   useXIsNextStore,
 } from './GameStore';
 import {Title} from 'react-native-paper';
+
+const Atitle = animated(Title);
 
 export function PlayerContainer() {
   const [{x}, api] = useSpring(() => ({
@@ -50,6 +52,23 @@ function Turns() {
   const {winner} = useWinnerStore();
 
   const [text, changeText] = useState('');
+  const transition = useTransition([text], {
+    from: {
+      move: 100,
+      opacity: 0,
+      position: 'absolute',
+    },
+    enter: {
+      move: 0,
+      opacity: 1,
+    },
+    leave: {
+      move: -100,
+      opacity: 0,
+      position: 'absolute',
+    },
+    config: config.wobbly,
+  });
 
   useEffect(() => {
     function showText(): string {
@@ -69,7 +88,14 @@ function Turns() {
 
   return (
     <View style={playerStyle.turnsContainer}>
-      <Title>{text}</Title>
+      {transition(({move, opacity, position}, el) => {
+        // @ts-ignore
+        return (
+          <Atitle style={{transform: [{translateX: move}], opacity, position}}>
+            {el}
+          </Atitle>
+        );
+      })}
     </View>
   );
 }
