@@ -107,16 +107,16 @@ function AllPlayer(){
 
   const transitions = useTransition(players, {
     from: (item, index) => {
-      return {top: index * 60, opacity: 0};
+      return {top: index * 40, opacity: 0};
     },
     leave: (item, index) => {
-      return {top: index * 60, opacity: 0};
+      return {top: index * 40, opacity: 0};
     },
     enter: (item, index) => {
-      return {top: index * 80, opacity: 1};
+      return {top: index * 60, opacity: 1};
     },
     update: (item, index) => {
-      return {top: index * 80};
+      return {top: index * 60};
     },
   });
 

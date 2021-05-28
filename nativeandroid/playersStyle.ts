@@ -48,7 +48,7 @@ export const playerStyle = StyleSheet.create({
     alignItems: 'center',
   },
   playerCard: {
-    width: '90%',
+    width: '95%',
     borderColor: theme === 'dark' ? '#f1f0f0' : '#6f6f6f',
     borderWidth: 1,
     borderRadius: 8,
@@ -63,5 +63,5 @@ export const playerStyle = StyleSheet.create({
   },
   playerName: {
     marginLeft: 10,
-  }
+  },
 });
