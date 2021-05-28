@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import { Dimensions, ScrollView, TouchableOpacity, View } from "react-native";
+import {Dimensions, ScrollView, TouchableOpacity, View} from 'react-native';
 import {playerStyle} from './playersStyle';
 import {useSpring, animated, useTransition, config} from 'react-spring/native';
 import {
-  useIsGameStartedStore, usePlayerStore,
+  useIsGameStartedStore,
+  usePlayerStore,
   useWinnerStore,
-  useXIsNextStore
-} from "./GameStore";
-import { Text, Title } from "react-native-paper";
+  useXIsNextStore,
+} from './GameStore';
+import {Text, Title} from 'react-native-paper';
 
 const Atitle = animated(Title);
 
@@ -100,9 +101,7 @@ function Turns() {
   );
 }
 
-
-function AllPlayer(){
-
+function AllPlayer() {
   const {players} = usePlayerStore();
 
   const transitions = useTransition(players, {
@@ -113,28 +112,31 @@ function AllPlayer(){
       return {top: index * 40, opacity: 0};
     },
     enter: (item, index) => {
-      return {top: index * 60, opacity: 1};
+      return {top: index * 70 + 20, opacity: 1};
     },
     update: (item, index) => {
-      return {top: index * 60};
+      return {top: index * 70 + 20};
     },
   });
 
   return (
     <ScrollView style={playerStyle.playersContainer}>
-      <View style={playerStyle.playerView}>
-        <Player />
+      <View
+        style={[playerStyle.playerView, {height: (players.length + 1) * 60}]}>
+        {transitions((style, el) => (
+          <Player style={style} player={el} />
+        ))}
       </View>
     </ScrollView>
   );
 }
 
-function Player(){
-
+// @ts-ignore
+function Player({style, player}) {
   return (
-    <animated.View style={playerStyle.playerCard}>
-      <Text style={playerStyle.playerIcon}>X</Text>
-      <Text style={playerStyle.playerName}>hmmm</Text>
+    <animated.View style={[playerStyle.playerCard, style]}>
+      <Text style={playerStyle.playerIcon}>{player.role}</Text>
+      <Text style={playerStyle.playerName}>{player.name}</Text>
     </animated.View>
-  )
+  );
 }

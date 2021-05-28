@@ -50,6 +50,7 @@ export const playerStyle = StyleSheet.create({
   playerCard: {
     width: '95%',
     borderColor: theme === 'dark' ? '#f1f0f0' : '#6f6f6f',
+    backgroundColor: theme === 'light' ? '#f1f0f0' : '#6f6f6f',
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -57,6 +58,7 @@ export const playerStyle = StyleSheet.create({
     alignItems: 'center',
     height: 60,
     justifyContent: 'flex-start',
+    position: 'absolute',
   },
   playerIcon: {
     fontSize: 20,
