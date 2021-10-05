@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Dimensions, ScrollView, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useRef, useState } from "react";
+import { Dimensions, PanResponder, ScrollView, TouchableOpacity, View } from "react-native";
 import {playerStyle} from './playersStyle';
 import {useSpring, animated, useTransition, config} from 'react-spring/native';
 import {
@@ -15,8 +15,31 @@ const Atitle = animated(Title);
 export function PlayerContainer() {
   const [{x}, api] = useSpring(() => ({
     x: 0,
+    config: config.gentle
   }));
   const [up, setUp] = useState(false);
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (e, state) => {
+        api.start({
+          x: state.dy
+        })
+      },
+      onPanResponderRelease: (e, state) => {
+        const dimension = (Dimensions.get('window').height - 150) / 2;
+
+        if ((state.dy * -1) > dimension){
+          api.start({x: -1 * (Dimensions.get('window').height - 150)});
+          setUp(true);
+        } else {
+          api.start({x: 0});
+          setUp(true);
+        }
+      }
+    })
+  ).current;
 
   function press() {
     if (up) {
@@ -30,8 +53,9 @@ export function PlayerContainer() {
 
   return (
     <animated.View
-      style={[playerStyle.container, {transform: [{translateY: x}]}]}>
-      <BilBilak press={press} />
+      style={[playerStyle.container, {transform: [{translateY: x}]}]}
+    >
+      <BilBilak {...panResponder.panHandlers} press={press} />
       <Turns />
       <AllPlayer />
     </animated.View>
@@ -39,9 +63,9 @@ export function PlayerContainer() {
 }
 
 //@ts-ignore
-function BilBilak({press}) {
+function BilBilak({press, ...props}) {
   return (
-    <View style={playerStyle.bilbilakContainer}>
+    <View style={playerStyle.bilbilakContainer} {...props}>
       <TouchableOpacity onPress={press} style={playerStyle.bilbilak} />
     </View>
   );
